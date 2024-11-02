@@ -10,8 +10,6 @@ public class HintObjectManager : MonoBehaviour
     private static List<GameObject> hintObjects;
     private static VisualElement parentPopUp;
     private static List<VisualElement> popUpsExplanation;
-    public static int score = 0;
-    public static Label scoreLabel;
     private Button finishTestBtn;
     private Button nextLvlBtn;
 
@@ -21,8 +19,7 @@ public class HintObjectManager : MonoBehaviour
         GameObject parent = GameObject.Find("ClickContainers");
 
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
-        var root = uiDocument.rootVisualElement;
-        scoreLabel = root.Q<Label>("scoreLabel");  
+        var root = uiDocument.rootVisualElement; 
 
         popUpsExplanation = root.Query<VisualElement>("Slide").ToList();
         popUpsExplanation.Reverse();
@@ -35,16 +32,17 @@ public class HintObjectManager : MonoBehaviour
         nextLvlBtn.clicked += OnClickNextLevel;
     }
 
-    public static void AddScore(GameObject currentHintObject)
+    public static void OnClickHintObject(GameObject currentHintObject)
     {
         for (int i = hintObjects.Count - 1; i >= 0; i--)
         {   
             if(hintObjects[i].name == currentHintObject.name)
             {
-                score ++;
-                scoreLabel.text = "Score:  " + score.ToString();
+                ScoreManager.AddScore(5);
+
                 hintObjects.Remove(currentHintObject);
                 Destroy(currentHintObject);
+                
                 parentPopUp.Remove(popUpsExplanation[i]);
                 popUpsExplanation.Remove(popUpsExplanation[i]);
             }
