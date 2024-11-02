@@ -13,11 +13,12 @@ public class IntroManager : MonoBehaviour
         var root = uiDocument.rootVisualElement;
         nextSlide = root.Q<Button>("nextSlide"); 
 
-        nextSlide.clicked += NextSlide;
+        nextSlide.clicked += OnClickNextScene;
     }
 
-    private void NextSlide()
+    private void OnClickNextScene()
     {
-        SceneManager.LoadScene("Intro2");
+        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        SceneManager.LoadScene(nextSceneIndex);
     }
 }
