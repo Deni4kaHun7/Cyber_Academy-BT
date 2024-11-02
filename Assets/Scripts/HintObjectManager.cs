@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,43 +7,43 @@ using UnityEngine.UIElements;
 public class HintObjectManager : MonoBehaviour
 {
     //private Dictionary<VisualElement, VisualElement> hintObjectsDict = new Dictionary<VisualElement, VisualElement>();
-    private static List<Transform> hintObjects = new List<Transform>();
+    private static List<GameObject> hintObjects;
     private static VisualElement parentPopUp;
-    private static VisualElement[] popUpsExplanation;
+    private static List<VisualElement> popUpsExplanation;
     public static int score = 0;
     public static Label scoreLabel;
 
     private void Start()
     {
+        hintObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("HintObject"));
         GameObject parent = GameObject.Find("ClickContainers");
-        foreach(Transform child in parent.transform)
-        {
-            hintObjects.Add(child);
-            Debug.Log(child.name);
-        }
 
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement;
         scoreLabel = root.Q<Label>("scoreLabel");  
-        popUpsExplanation = root.Query<VisualElement>("popUp").ToList().ToArray();
+
+        popUpsExplanation = root.Query<VisualElement>("popUp").ToList();
+        popUpsExplanation.Reverse();
         parentPopUp = root.Q<VisualElement>("PopUpExplanationContainer");
-        Debug.Log(popUpsExplanation.Length);
+        //Debug.Log("Popups count beginning" + popUpsExplanation.Length);
     }
 
     public static void AddScore(GameObject currentHintObject)
     {
-        score ++;
-        scoreLabel.text = "Score:  " + score.ToString();
-        
+        //Debug.Log("Name " + currentHintObject.name);
         for (int i = hintObjects.Count - 1; i >= 0; i--)
         {
+            
             if(hintObjects[i].name == currentHintObject.name)
             {
-                Debug.Log(currentHintObject);
-                hintObjects.Remove(currentHintObject.transform);
+                Debug.Log(i);
+                score ++;
+                scoreLabel.text = "Score:  " + score.ToString();
+                //Debug.Log(currentHintObject);
+                hintObjects.Remove(currentHintObject);
                 Destroy(currentHintObject);
                 parentPopUp.Remove(popUpsExplanation[i]);
-                Debug.Log(popUpsExplanation.Length);
+                popUpsExplanation.Remove(popUpsExplanation[i]);
             }
         }
     }
@@ -52,9 +53,9 @@ public class HintObjectManager : MonoBehaviour
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement;
         
-        for (int i = hintObjects.Count - 1; i >= 0; i--)
+        /* for (int i = hintObjects.Count - 1; i >= 0; i--)
         {
 
-        }
+        } */
     }
 }
