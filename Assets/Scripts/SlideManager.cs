@@ -18,10 +18,11 @@ public class SlideManager : MonoBehaviour
         var root = uiDocument.rootVisualElement;
 
         slidesArray = root.Query<VisualElement>("Slide").ToList().ToArray();
-        Debug.Log(slidesArray.Length);
         nextSlideBtn = root.Q<Button>("nextSlideBtn");
+        prevSlideBtn = root.Q<Button>("prevSlideBtn");
 
         nextSlideBtn.clicked += OnClickNextSlide;
+        prevSlideBtn.clicked += OnClickPrevSlide;
     }
 
     private void ShowSlide(int index)
@@ -34,6 +35,13 @@ public class SlideManager : MonoBehaviour
     {
         slidesArray[currentSlideIndex].style.display = DisplayStyle.None;
         currentSlideIndex ++;
+        ShowSlide(currentSlideIndex);
+    }
+
+    private void OnClickPrevSlide()
+    {
+        slidesArray[currentSlideIndex].style.display = DisplayStyle.None;
+        currentSlideIndex --;
         ShowSlide(currentSlideIndex);
     }
 }
