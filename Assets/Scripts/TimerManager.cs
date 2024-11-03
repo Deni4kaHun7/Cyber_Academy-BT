@@ -8,7 +8,9 @@ public class TimerManager : MonoBehaviour
     [SerializeField] private float timeLimit;
     private Label timerLabel;
     private VisualElement timePopupContainer;
+    private VisualElement timerIntroContainer;
     private Button btnRestart;
+    private Button btnStartTimer;
     private float timeRemaining;
     public bool isTimerRunning = false;
 
@@ -22,14 +24,26 @@ public class TimerManager : MonoBehaviour
         timePopupContainer = root.Q<VisualElement>("TimePopupContainer");
         btnRestart= timePopupContainer.Q<Button>("btnPopup");
 
-        timeRemaining = timeLimit;
+        timerIntroContainer = root.Q<VisualElement>("TimerIntroContainer");
+        btnStartTimer = root.Q<Button>("btnStartTimer");
 
         btnRestart.clicked += OnTryAgainBtnClicked;
+        btnStartTimer.clicked += AddTimer;
+
+        if(ScoreManager.score == 10) {
+            timerIntroContainer.style.display = DisplayStyle.Flex;
+        }
     }
 
     private void Update()
     {
-        if(isTimerRunning)
+        if(timeRemaining <= 0 && isTimerRunning)
+        {
+            timeRemaining = 0;
+            timerLabel.text = "00:00";
+            timePopupContainer.style.display = DisplayStyle.Flex;
+        }
+        else if(isTimerRunning)
         {
             timeRemaining -= Time.deltaTime;
 
@@ -43,18 +57,26 @@ public class TimerManager : MonoBehaviour
                 timerLabel.text = minutes.ToString() + ":" + seconds;
             }
         }
-        else if(timeLimit > 0)
-        {
-            timeRemaining = 0;
-            timerLabel.text = "00:00";
-            timePopupContainer.style.display = DisplayStyle.Flex;
-        }
     }
 
     private void OnTryAgainBtnClicked()
     {
         timeRemaining = timeLimit;
+        isTimerRunning = true;
         timePopupContainer.style.display = DisplayStyle.None;
+    }
+
+    private void AddTimer()
+    {
+        timerIntroContainer.style.display = DisplayStyle.None;
+        timerLabel.style.display = DisplayStyle.Flex;
+        isTimerRunning = true;
+        timeRemaining = timeLimit;
+    }
+
+    public void StopTimer()
+    {
+        isTimerRunning = false;
     }
 
      /* private void OnClickIsPhishing()
