@@ -27,7 +27,6 @@ public class SlideManager : MonoBehaviour
 
     private void ShowSlide(int index)
     {
-        Debug.Log(index);
         slidesArray[index].style.display = DisplayStyle.Flex;
     }
 

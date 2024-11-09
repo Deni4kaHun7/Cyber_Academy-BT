@@ -7,6 +7,6 @@ public class HintObject : MonoBehaviour
 {
     private void OnMouseDown()
     {
-        HintObjectManager.AddScore(gameObject);
+        HintObjectManager.OnClickHintObject(gameObject);
     }
 }

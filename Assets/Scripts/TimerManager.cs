@@ -3,19 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class TimerTestManager : MonoBehaviour
+public class TimerManager : MonoBehaviour
 {
-    [SerializeField] private bool isPhishing;
     [SerializeField] private float timeLimit;
     private Label timerLabel;
     private VisualElement timePopupContainer;
-    private VisualElement successPopupContainer;
-    private VisualElement failPopupContainer;
+    private VisualElement timerIntroContainer;
     private Button btnRestart;
-    private Button btnIsPhishing;
-    private Button btnNotPhishing;
+    private Button btnStartTimer;
     private float timeRemaining;
-    private bool isTimerRunning = true;
+    public bool isTimerRunning = false;
 
     private void Start() 
     {
@@ -24,26 +21,29 @@ public class TimerTestManager : MonoBehaviour
 
         timerLabel = root.Q<Label>("timerLabel");
 
-        var btnContainer = root.Q<VisualElement>("BtnContainer");
-        btnIsPhishing = btnContainer.Q<Button>("btnIsPhishing");
-        btnNotPhishing = btnContainer.Q<Button>("btnNotPhishing");
-
         timePopupContainer = root.Q<VisualElement>("TimePopupContainer");
         btnRestart= timePopupContainer.Q<Button>("btnPopup");
 
-        failPopupContainer = root.Q<VisualElement>("FailPopupContainer");
-        successPopupContainer = root.Q<VisualElement>("SuccessPopupContainer");
-
-        timeRemaining = timeLimit;
+        timerIntroContainer = root.Q<VisualElement>("TimerIntroContainer");
+        btnStartTimer = root.Q<Button>("btnStartTimer");
 
         btnRestart.clicked += OnTryAgainBtnClicked;
-        btnIsPhishing.clicked += OnClickIsPhishing;
-        btnNotPhishing.clicked += OnClickIsPhishing; 
+        btnStartTimer.clicked += AddTimer;
+
+        if(ScoreManager.score == 10) {
+            timerIntroContainer.style.display = DisplayStyle.Flex;
+        }
     }
 
     private void Update()
     {
-        if(isTimerRunning)
+        if(timeRemaining <= 0 && isTimerRunning)
+        {
+            timeRemaining = 0;
+            timerLabel.text = "00:00";
+            timePopupContainer.style.display = DisplayStyle.Flex;
+        }
+        else if(isTimerRunning)
         {
             timeRemaining -= Time.deltaTime;
 
@@ -57,21 +57,29 @@ public class TimerTestManager : MonoBehaviour
                 timerLabel.text = minutes.ToString() + ":" + seconds;
             }
         }
-        else 
-        {
-            timeRemaining = 0;
-            timerLabel.text = "00:00";
-            timePopupContainer.style.display = DisplayStyle.Flex;
-        }
     }
 
     private void OnTryAgainBtnClicked()
     {
         timeRemaining = timeLimit;
+        isTimerRunning = true;
         timePopupContainer.style.display = DisplayStyle.None;
     }
 
-    private void OnClickIsPhishing()
+    private void AddTimer()
+    {
+        timerIntroContainer.style.display = DisplayStyle.None;
+        timerLabel.style.display = DisplayStyle.Flex;
+        isTimerRunning = true;
+        timeRemaining = timeLimit;
+    }
+
+    public void StopTimer()
+    {
+        isTimerRunning = false;
+    }
+
+     /* private void OnClickIsPhishing()
     {
         timeRemaining = timeLimit;
         isTimerRunning = false;
@@ -91,5 +99,5 @@ public class TimerTestManager : MonoBehaviour
         }else{
             successPopupContainer.style.display = DisplayStyle.Flex;
         }
-    }
+    } */
 }
