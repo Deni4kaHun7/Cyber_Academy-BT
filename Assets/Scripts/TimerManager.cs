@@ -78,26 +78,4 @@ public class TimerManager : MonoBehaviour
     {
         isTimerRunning = false;
     }
-
-     /* private void OnClickIsPhishing()
-    {
-        timeRemaining = timeLimit;
-        isTimerRunning = false;
-        if(isPhishing)
-        {
-            successPopupContainer.style.display = DisplayStyle.Flex;
-        }else{
-            failPopupContainer.style.display = DisplayStyle.Flex;
-        }
-    }
-
-    private void OnClickIsNotPhishing()
-    {
-        if(isPhishing)
-        {
-            failPopupContainer.style.display = DisplayStyle.Flex;
-        }else{
-            successPopupContainer.style.display = DisplayStyle.Flex;
-        }
-    } */
 }

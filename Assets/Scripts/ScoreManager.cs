@@ -18,7 +18,7 @@ public class ScoreManager : MonoBehaviour
 
     public static void AddScore(int points)
     {
-        score += points;
+        score = Mathf.Max(0, score + points);
         scoreLabel.text = "Score:  " + score.ToString();
     }
 }

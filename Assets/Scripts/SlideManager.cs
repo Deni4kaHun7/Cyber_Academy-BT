@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class SlideManager : MonoBehaviour
 {
     private int currentSlideIndex = 0;
-    private Button btnNextSlide;
-    private Button btnPrevSlide;
-    private Button btnNextScene;
+    private Button[] btnNextSlideArray;
+    private Button[] btnPrevSlideArray;
     private VisualElement[] slidesArray;
     private VisualElement nextSlide;
     private VisualElement prevSlide;
@@ -19,12 +19,18 @@ public class SlideManager : MonoBehaviour
         var root = uiDocument.rootVisualElement;
 
         slidesArray = root.Query<VisualElement>("Slide").ToList().ToArray();
-        btnNextSlide = root.Q<Button>("btnNextSlide");
-        btnPrevSlide = root.Q<Button>("btnPrevSlide");
-        btnNextScene = root.Q<Button>("btnNextScene");
 
-        btnNextSlide.clicked += OnClickNextSlide;
-        btnPrevSlide.clicked += OnClickPrevSlide;
+        btnNextSlideArray = root.Query<Button>("btnNextSlide").ToList().ToArray();
+        foreach(var btnNextSlide in btnNextSlideArray)
+        {
+            btnNextSlide.clicked += OnClickNextSlide;
+        }
+
+        btnPrevSlideArray = root.Query<Button>("btnPrevSlide").ToList().ToArray();
+        foreach(var btnPrevSLide in btnPrevSlideArray)
+        {
+            btnPrevSLide.clicked += OnClickPrevSlide;
+        }
     }
 
     private void ShowSlide(int index)
@@ -38,12 +44,12 @@ public class SlideManager : MonoBehaviour
         currentSlideIndex ++;
         ShowSlide(currentSlideIndex);
 
-        var nextSlideIndex = currentSlideIndex + 1;
+       /*  var nextSlideIndex = currentSlideIndex + 1;
         if(nextSlideIndex == slidesArray.Length)
         {
-            btnNextScene.style.display = DisplayStyle.Flex;
+            btnNextLevel.style.display = DisplayStyle.Flex;
             btnNextSlide.SetEnabled(false);
-        } 
+        }  */
     }
 
     private void OnClickPrevSlide()

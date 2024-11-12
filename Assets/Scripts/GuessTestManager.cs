@@ -9,9 +9,9 @@ public class GuessTestManager : MonoBehaviour
     [SerializeField] private bool isPhishing;
     private VisualElement successPopupContainer;
     private VisualElement failPopupContainer;
+    private VisualElement[] slidesExplanation;
     private Button btnIsPhishing;
     private Button btnNotPhishing;
-    private Button btnLoadNextLvl;
     private TimerManager timerManager;
     private ScoreManager scoreManager;
 
@@ -28,11 +28,11 @@ public class GuessTestManager : MonoBehaviour
 
         failPopupContainer = root.Q<VisualElement>("FailPopupContainer");
         successPopupContainer = root.Q<VisualElement>("SuccessPopupContainer");
-        btnLoadNextLvl = root.Q<Button>("btnLoadNextLvl");
+
+        slidesExplanation = root.Query<VisualElement>("Slide").ToList().ToArray();
 
         btnIsPhishing.clicked += OnClickIsPhishing;
         btnNotPhishing.clicked += OnClickIsNotPhishing; 
-        btnLoadNextLvl.clicked += OnClickLoadNextLvl;
     }
 
     private void OnClickIsPhishing()
@@ -54,23 +54,11 @@ public class GuessTestManager : MonoBehaviour
         if(isPhishing)
         {
             failPopupContainer.style.display = DisplayStyle.Flex;
+            slidesExplanation[0].style.display = DisplayStyle.Flex;
             ScoreManager.AddScore(-10);
         }else{
             successPopupContainer.style.display = DisplayStyle.Flex;
             ScoreManager.AddScore(10);
         }
-    }
-
-    private void OnClickLoadNextLvl()
-    {
-        if(isPhishing)
-        {
-            successPopupContainer.style.display = DisplayStyle.None;
-        }else{
-            failPopupContainer.style.display = DisplayStyle.None;
-        }
-
-        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        SceneManager.LoadScene(nextSceneIndex);
     }
 }

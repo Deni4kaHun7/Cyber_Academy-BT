@@ -5,19 +5,25 @@
         <ui:VisualElement name="Slide" style="flex-grow: 1; position: absolute; width: 300px; height: 300px; left: 4%; top: 345px; background-color: rgb(255, 255, 255); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; display: none;">
             <ui:Label tabindex="-1" text="Text Slide 1" parse-escape-sequences="true" display-tooltip-when-elided="true" enable-rich-text="false" style="color: rgb(0, 0, 0); font-size: 28px; height: 142px; width: 289px;" />
             <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
-                <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" style="width: 50%;" />
-                <ui:Button text="Next SLide" parse-escape-sequences="true" display-tooltip-when-elided="true" enable-rich-text="false" name="nextSlideBtn" style="width: 125px; height: 146px;" />
+                <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btnPrevSlide" style="width: 50%;" />
+                <ui:Button text="Next SLide" parse-escape-sequences="true" display-tooltip-when-elided="true" enable-rich-text="false" name="btnNextSlide" style="width: 125px; height: 146px;" />
             </ui:VisualElement>
-            <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="nextLvlBtn" />
+            <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btnNextScene" />
         </ui:VisualElement>
         <ui:VisualElement name="Slide" style="flex-grow: 1; position: absolute; width: 300px; height: 300px; left: 26%; top: 345px; background-color: rgb(255, 255, 255); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; display: none;">
             <ui:Label tabindex="-1" text="Text Slide 2" parse-escape-sequences="true" display-tooltip-when-elided="true" enable-rich-text="false" style="color: rgb(0, 0, 0); font-size: 28px; height: 142px; width: 289px;" />
             <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
-                <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" style="width: 50%;" />
-                <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" style="width: 125px; height: 146px;" />
+                <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btnPrevSlide" style="width: 50%;" />
+                <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btnNextSlide" style="width: 125px; height: 146px;" />
             </ui:VisualElement>
-            <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="nextLvlBtn" />
+            <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btnNextScene" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:Button text="Finish test" parse-escape-sequences="true" display-tooltip-when-elided="true" name="finishTestBtn" style="flex-direction: column; justify-content: space-around; align-items: center;" />
+    <ui:Button text="Finish test" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btnFinishTest" style="flex-direction: column; justify-content: space-around; align-items: center;" />
+    <ui:VisualElement name="IntroToLevelContainer" style="flex-grow: 1; position: absolute; height: 1080px; width: 1920px; background-color: rgba(0, 0, 0, 0.63); display: flex;">
+        <ui:VisualElement style="flex-grow: 1; position: absolute; height: 171px; width: 218px; left: 45%; top: 424px; background-color: rgb(255, 255, 255);">
+            <ui:Label tabindex="-1" text="Explanation how level works" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+            <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btnStartLevel" />
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>
