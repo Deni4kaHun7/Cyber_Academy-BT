@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class SlideManager : MonoBehaviour
 {
     private int currentSlideIndex = 0;
-    private Button nextSlideBtn;
-    private Button prevSlideBtn;
+    private Button[] btnNextSlideArray;
+    private Button[] btnPrevSlideArray;
     private VisualElement[] slidesArray;
     private VisualElement nextSlide;
     private VisualElement prevSlide;
@@ -18,11 +19,18 @@ public class SlideManager : MonoBehaviour
         var root = uiDocument.rootVisualElement;
 
         slidesArray = root.Query<VisualElement>("Slide").ToList().ToArray();
-        nextSlideBtn = root.Q<Button>("nextSlideBtn");
-        prevSlideBtn = root.Q<Button>("prevSlideBtn");
 
-        nextSlideBtn.clicked += OnClickNextSlide;
-        prevSlideBtn.clicked += OnClickPrevSlide;
+        btnNextSlideArray = root.Query<Button>("btnNextSlide").ToList().ToArray();
+        foreach(var btnNextSlide in btnNextSlideArray)
+        {
+            btnNextSlide.clicked += OnClickNextSlide;
+        }
+
+        btnPrevSlideArray = root.Query<Button>("btnPrevSlide").ToList().ToArray();
+        foreach(var btnPrevSLide in btnPrevSlideArray)
+        {
+            btnPrevSLide.clicked += OnClickPrevSlide;
+        }
     }
 
     private void ShowSlide(int index)
@@ -35,6 +43,13 @@ public class SlideManager : MonoBehaviour
         slidesArray[currentSlideIndex].style.display = DisplayStyle.None;
         currentSlideIndex ++;
         ShowSlide(currentSlideIndex);
+
+       /*  var nextSlideIndex = currentSlideIndex + 1;
+        if(nextSlideIndex == slidesArray.Length)
+        {
+            btnNextLevel.style.display = DisplayStyle.Flex;
+            btnNextSlide.SetEnabled(false);
+        }  */
     }
 
     private void OnClickPrevSlide()

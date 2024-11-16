@@ -8,10 +8,11 @@ using UnityEngine.SceneManagement;
 public class HintObjectManager : MonoBehaviour
 {
     private static List<GameObject> hintObjects;
-    private static VisualElement parentPopUp;
     private static List<VisualElement> popUpsExplanation;
-    private Button finishTestBtn;
-    private Button nextLvlBtn;
+    private static VisualElement parentPopUp;
+    private VisualElement introToLevel;
+    private Button btnStartLevel;
+    private Button btnFinishTest;
 
     private void Start()
     {
@@ -25,11 +26,12 @@ public class HintObjectManager : MonoBehaviour
         popUpsExplanation.Reverse();
         parentPopUp = root.Q<VisualElement>("PopUpExplanationContainer");
 
-        finishTestBtn = root.Q<Button>("finishTestBtn");
-        finishTestBtn.clicked += OnClickFinishTest;
+        introToLevel = root.Q<VisualElement>("IntroToLevelContainer");
+        btnStartLevel = root.Q<Button>("btnStartLevel");
+        btnStartLevel.clicked += OnClickStartLevel;
 
-        nextLvlBtn = root.Q<Button>("nextLvlBtn");
-        nextLvlBtn.clicked += OnClickNextLevel;
+        btnFinishTest = root.Q<Button>("btnFinishTest");
+        btnFinishTest.clicked += OnClickFinishTest;
     }
 
     public static void OnClickHintObject(GameObject currentHintObject)
@@ -56,9 +58,8 @@ public class HintObjectManager : MonoBehaviour
         popUpsExplanation[0].style.display = DisplayStyle.Flex;
     }
 
-    private void OnClickNextLevel()
+    private void OnClickStartLevel()
     {
-        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        SceneManager.LoadScene(nextSceneIndex);
+        introToLevel.style.display = DisplayStyle.None;
     }
 }

@@ -4,16 +4,19 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 
-public class IntroManager : MonoBehaviour
+public class GameSceneManager : MonoBehaviour
 {
-    private Button nextSlide;
+    private Button[] btnNextSceneArray;
     void Start()
     {
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement;
-        nextSlide = root.Q<Button>("nextSlide"); 
+        btnNextSceneArray = root.Query<Button>("btnNextScene").ToList().ToArray(); 
 
-        nextSlide.clicked += OnClickNextScene;
+        foreach(var btn in btnNextSceneArray)
+        {
+            btn.clicked += OnClickNextScene;
+        }
     }
 
     private void OnClickNextScene()

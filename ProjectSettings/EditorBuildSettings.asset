@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/IntroToStory.unity
+    guid: 53c94dcc6c8c94ad29de6bbcb009b27c
+  - enabled: 1
+    path: Assets/Scenes/Intro1.unity
+    guid: 8295a35009e254dd6b5d62d1261350bb
+  - enabled: 1
+    path: Assets/Scenes/HintTest.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
     path: Assets/Scenes/TimerTest.unity
     guid: 73f8248de14d24052935fba766b27e51
   - enabled: 1
