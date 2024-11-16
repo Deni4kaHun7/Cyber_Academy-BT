@@ -19,18 +19,18 @@
                 <ui:VisualElement name="Slide" style="flex-grow: 1; position: absolute; width: 300px; height: 300px; left: 4%; top: 345px; background-color: rgb(255, 255, 255); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; display: none;">
                     <ui:Label tabindex="-1" text="Text Slide 1" parse-escape-sequences="true" display-tooltip-when-elided="true" enable-rich-text="false" style="color: rgb(0, 0, 0); font-size: 28px; height: 142px; width: 289px;" />
                     <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
-                        <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btnPrevSlide" style="width: 50%;" />
-                        <ui:Button text="Next SLide" parse-escape-sequences="true" display-tooltip-when-elided="true" enable-rich-text="false" name="btnNextSlide" style="width: 125px; height: 146px;" />
+                        <ui:Button text="Prev Slide" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btnPrevSlide" enable-rich-text="true" style="width: 50%;" />
+                        <ui:Button text="Next Slide" parse-escape-sequences="true" display-tooltip-when-elided="true" enable-rich-text="false" name="btnNextSlide" style="width: 125px; height: 146px;" />
                     </ui:VisualElement>
-                    <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btnNextScene" />
+                    <ui:Button text="Next Level&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btnNextScene" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Slide" style="flex-grow: 1; position: absolute; width: 300px; height: 300px; left: 26%; top: 345px; background-color: rgb(255, 255, 255); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; display: none;">
                     <ui:Label tabindex="-1" text="Text Slide 2" parse-escape-sequences="true" display-tooltip-when-elided="true" enable-rich-text="false" style="color: rgb(0, 0, 0); font-size: 28px; height: 142px; width: 289px;" />
                     <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
-                        <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btnPrevSlide" style="width: 50%;" />
-                        <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btnNextSlide" style="width: 125px; height: 146px;" />
+                        <ui:Button text="Prev Slide" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btnPrevSlide" style="width: 50%;" />
+                        <ui:Button text="Next Slide" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btnNextSlide" style="width: 125px; height: 146px;" />
                     </ui:VisualElement>
-                    <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btnNextScene" />
+                    <ui:Button text="Next Level" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btnNextScene" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="SuccessPopupContainer" style="flex-grow: 1; position: absolute; flex-direction: column; top: -18px; height: 1108px; width: 1948px; background-color: rgba(14, 14, 14, 0.69); right: -6px; display: none; opacity: 1; border-left-color: rgba(255, 255, 255, 0); border-right-color: rgba(255, 255, 255, 0); border-top-color: rgba(255, 255, 255, 0); border-bottom-color: rgba(255, 255, 255, 0); visibility: visible; overflow: visible; -unity-background-image-tint-color: rgb(0, 0, 0); -unity-slice-left: 10; -unity-slice-top: 10; -unity-slice-right: 10; -unity-slice-bottom: 10; flex-shrink: 1; flex-basis: initial; align-items: flex-end; justify-content: flex-end; align-self: flex-start; flex-wrap: nowrap;">
