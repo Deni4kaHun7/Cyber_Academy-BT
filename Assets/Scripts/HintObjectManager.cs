@@ -13,9 +13,12 @@ public class HintObjectManager : MonoBehaviour
     private VisualElement introToLevel;
     private Button btnStartLevel;
     private Button btnFinishTest;
+    private GameObject popupBG;
 
     private void Start()
     {
+        popupBG = GameObject.Find("PopupBG");
+        popupBG.SetActive(false);
         hintObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("HintObject"));
         GameObject parent = GameObject.Find("ClickContainers");
 
@@ -56,6 +59,11 @@ public class HintObjectManager : MonoBehaviour
         parentPopUp.style.display = DisplayStyle.Flex;
         popUpsExplanation.Reverse();
         popUpsExplanation[0].style.display = DisplayStyle.Flex;
+
+        btnFinishTest.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.02f);
+        ScoreManager.scoreLabel.style.color = new Color(219f ,106f ,0f, 0.02f);
+
+        popupBG.SetActive(true);
     }
 
     private void OnClickStartLevel()

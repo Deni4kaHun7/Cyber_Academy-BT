@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class SlideManager : MonoBehaviour
 {
+    [SerializeField] private string slideName;
+    [SerializeField] private Button[] btnsToHideArray;
+
     private int currentSlideIndex = 0;
     private Button[] btnNextSlideArray;
     private Button[] btnPrevSlideArray;
@@ -18,8 +21,7 @@ public class SlideManager : MonoBehaviour
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement;
 
-        slidesArray = root.Query<VisualElement>("Slide").ToList().ToArray();
-
+        slidesArray = root.Query<VisualElement>(slideName).ToList().ToArray();
         btnNextSlideArray = root.Query<Button>("btnNextSlide").ToList().ToArray();
         foreach(var btnNextSlide in btnNextSlideArray)
         {
