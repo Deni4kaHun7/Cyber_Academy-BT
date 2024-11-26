@@ -7,9 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class HintObjectManager : MonoBehaviour
 {
+    [SerializeField] private bool hasIntro;
     private static List<GameObject> hintObjects;
     private static List<VisualElement> popUpsExplanation;
     private static VisualElement parentPopUp;
+    private VisualElement popupBtns;
     private VisualElement introToLevel;
     private Button btnStartLevel;
     private Button btnFinishTest;
@@ -17,8 +19,12 @@ public class HintObjectManager : MonoBehaviour
 
     private void Start()
     {
-        popupBG = GameObject.Find("PopupBG");
-        popupBG.SetActive(false);
+        if(hasIntro)
+        {
+            popupBG = GameObject.Find("PopupBG");
+            popupBG.SetActive(false);
+        }
+        
         hintObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("HintObject"));
         GameObject parent = GameObject.Find("ClickContainers");
 
@@ -28,6 +34,7 @@ public class HintObjectManager : MonoBehaviour
         popUpsExplanation = root.Query<VisualElement>("Slide").ToList();
         popUpsExplanation.Reverse();
         parentPopUp = root.Q<VisualElement>("PopUpExplanationContainer");
+        popupBtns = root.Q<VisualElement>("PopupBtnsContainer");
 
         introToLevel = root.Q<VisualElement>("IntroToLevelContainer");
         btnStartLevel = root.Q<Button>("btnStartLevel");
@@ -59,6 +66,7 @@ public class HintObjectManager : MonoBehaviour
         parentPopUp.style.display = DisplayStyle.Flex;
         popUpsExplanation.Reverse();
         popUpsExplanation[0].style.display = DisplayStyle.Flex;
+        popupBtns.style.display = DisplayStyle.Flex;
 
         btnFinishTest.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.02f);
         ScoreManager.scoreLabel.style.color = new Color(219f ,106f ,0f, 0.02f);

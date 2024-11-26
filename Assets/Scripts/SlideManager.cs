@@ -7,14 +7,15 @@ using UnityEngine.SceneManagement;
 public class SlideManager : MonoBehaviour
 {
     [SerializeField] private string slideName;
-    [SerializeField] private Button[] btnsToHideArray;
+    [SerializeField] private string btnsContainerName;
 
     private int currentSlideIndex = 0;
-    private Button[] btnNextSlideArray;
-    private Button[] btnPrevSlideArray;
+    private Button btnNextSlide;
+    private Button btnPrevSlide;
     private VisualElement[] slidesArray;
     private VisualElement nextSlide;
     private VisualElement prevSlide;
+    private VisualElement btnsContainer;
 
     void Start()
     {
@@ -22,17 +23,14 @@ public class SlideManager : MonoBehaviour
         var root = uiDocument.rootVisualElement;
 
         slidesArray = root.Query<VisualElement>(slideName).ToList().ToArray();
-        btnNextSlideArray = root.Query<Button>("btnNextSlide").ToList().ToArray();
-        foreach(var btnNextSlide in btnNextSlideArray)
-        {
-            btnNextSlide.clicked += OnClickNextSlide;
-        }
 
-        btnPrevSlideArray = root.Query<Button>("btnPrevSlide").ToList().ToArray();
-        foreach(var btnPrevSLide in btnPrevSlideArray)
-        {
-            btnPrevSLide.clicked += OnClickPrevSlide;
-        }
+        btnsContainer = root.Query<VisualElement>(btnsContainerName);
+        Debug.Log(btnsContainer);
+        btnNextSlide = btnsContainer.Query<Button>("btnNextSlide");
+        btnNextSlide.clicked += OnClickNextSlide;
+        
+        btnPrevSlide = btnsContainer.Query<Button>("btnPrevSlide");
+        btnPrevSlide.clicked += OnClickPrevSlide;
     }
 
     private void ShowSlide(int index)
