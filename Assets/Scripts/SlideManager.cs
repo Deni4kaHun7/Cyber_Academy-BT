@@ -25,7 +25,6 @@ public class SlideManager : MonoBehaviour
         slidesArray = root.Query<VisualElement>(slideName).ToList().ToArray();
 
         btnsContainer = root.Query<VisualElement>(btnsContainerName);
-        Debug.Log(btnsContainer);
         btnNextSlide = btnsContainer.Query<Button>("btnNextSlide");
         btnNextSlide.clicked += OnClickNextSlide;
         

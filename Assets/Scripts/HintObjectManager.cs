@@ -9,21 +9,15 @@ public class HintObjectManager : MonoBehaviour
 {
     [SerializeField] private bool hasIntro;
     private static List<GameObject> hintObjects;
+    private GameObject popupBG;
     private static List<VisualElement> popUpsExplanation;
     private static VisualElement parentPopUp;
-    private VisualElement popupBtns;
     private VisualElement introToLevel;
-    private Button btnStartLevel;
     private Button btnFinishTest;
-    private GameObject popupBG;
 
     private void Start()
     {
-        if(hasIntro)
-        {
-            popupBG = GameObject.Find("PopupBG");
-            popupBG.SetActive(false);
-        }
+        popupBG = GameObject.Find("PopupBG");
         
         hintObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("HintObject"));
         GameObject parent = GameObject.Find("ClickContainers");
@@ -34,11 +28,8 @@ public class HintObjectManager : MonoBehaviour
         popUpsExplanation = root.Query<VisualElement>("Slide").ToList();
         popUpsExplanation.Reverse();
         parentPopUp = root.Q<VisualElement>("PopUpExplanationContainer");
-        popupBtns = root.Q<VisualElement>("PopupBtnsContainer");
 
         introToLevel = root.Q<VisualElement>("IntroToLevelContainer");
-        btnStartLevel = root.Q<Button>("btnStartLevel");
-        btnStartLevel.clicked += OnClickStartLevel;
 
         btnFinishTest = root.Q<Button>("btnFinishTest");
         btnFinishTest.clicked += OnClickFinishTest;
@@ -66,16 +57,10 @@ public class HintObjectManager : MonoBehaviour
         parentPopUp.style.display = DisplayStyle.Flex;
         popUpsExplanation.Reverse();
         popUpsExplanation[0].style.display = DisplayStyle.Flex;
-        popupBtns.style.display = DisplayStyle.Flex;
 
         btnFinishTest.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.02f);
         ScoreManager.scoreLabel.style.color = new Color(219f ,106f ,0f, 0.02f);
 
         popupBG.SetActive(true);
-    }
-
-    private void OnClickStartLevel()
-    {
-        introToLevel.style.display = DisplayStyle.None;
     }
 }
