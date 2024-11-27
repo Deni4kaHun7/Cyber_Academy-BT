@@ -20,14 +20,13 @@ public class IntroManager : MonoBehaviour
         var root = uiDocument.rootVisualElement; 
 
         popupBG = GameObject.Find("PopupBG");
-        popupBG.SetActive(true);
 
         btnFinishTest = root.Q<Button>("btnFinishTest");
         btnHideIntro = root.Q<Button>("btnHideIntro");
         scoreLabel = root.Q<Label>("scoreLabel"); 
         introPopup = root.Q<VisualElement>("IntroToLevelContainer");
 
-        btnFinishTest.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.02f);
+        //btnFinishTest.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.02f);
         scoreLabel.style.color = new Color(219f ,106f ,0f, 0.02f);
 
         introPopup.style.display = DisplayStyle.Flex;

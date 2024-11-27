@@ -22,9 +22,9 @@ public class GuessTestManager : MonoBehaviour
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement;
 
-        var btnContainer = root.Q<VisualElement>("BtnContainer");
-        btnIsPhishing = btnContainer.Q<Button>("btnIsPhishing");
-        btnNotPhishing = btnContainer.Q<Button>("btnNotPhishing");
+        //var btnContainer = root.Q<VisualElement>("BtnContainer");
+        btnIsPhishing = root.Q<Button>("btnIsPhishing");
+        btnNotPhishing = root.Q<Button>("btnNotPhishing");
 
         failPopupContainer = root.Q<VisualElement>("FailPopupContainer");
         successPopupContainer = root.Q<VisualElement>("SuccessPopupContainer");
