@@ -12,7 +12,6 @@ public class GuessTestManager : MonoBehaviour
     private VisualElement[] slidesExplanation;
     private Button btnIsPhishing;
     private Button btnNotPhishing;
-    //private TimerManager timerManager;
     private ScoreManager scoreManager;
     private GameObject popupBG;
     private  VisualElement parentPopUp;
@@ -21,8 +20,8 @@ public class GuessTestManager : MonoBehaviour
     private void Start() 
     {
         popupBG = GameObject.Find("PopupBG");
-        //timerManager = FindObjectOfType<TimerManager>();
         scoreManager = FindObjectOfType<ScoreManager>();
+
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement;
 
@@ -40,7 +39,7 @@ public class GuessTestManager : MonoBehaviour
     {
         parentPopUp.style.display = DisplayStyle.Flex;
         popupBG.SetActive(true);
-        //timerManager.StopTimer();
+
         if(isPhishing)
         {
             successMsg.style.display = DisplayStyle.Flex;
@@ -55,7 +54,7 @@ public class GuessTestManager : MonoBehaviour
     {   
         parentPopUp.style.display = DisplayStyle.Flex;
         popupBG.SetActive(true);
-        //timerManager.StopTimer();
+
         if(isPhishing)
         {
             //failPopupContainer.style.display = DisplayStyle.Flex;
