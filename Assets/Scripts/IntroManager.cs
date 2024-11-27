@@ -35,7 +35,7 @@ public class IntroManager : MonoBehaviour
     }
 
     private void OnClickHideIntro(){
-        btnFinishTest.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 1f);
+        //btnFinishTest.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 1f);
         scoreLabel.style.color = new Color(219f ,106f ,0f, 1f);
         if (!isIntroHidden)
         {
