@@ -12,23 +12,23 @@ public class GuessTestManager : MonoBehaviour
     private VisualElement[] slidesExplanation;
     private Button btnIsPhishing;
     private Button btnNotPhishing;
-    private TimerManager timerManager;
     private ScoreManager scoreManager;
+    private GameObject popupBG;
+    private  VisualElement parentPopUp;
+    private Label successMsg;
 
     private void Start() 
     {
-        timerManager = FindObjectOfType<TimerManager>();
+        popupBG = GameObject.Find("PopupBG");
         scoreManager = FindObjectOfType<ScoreManager>();
+
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement;
 
-        var btnContainer = root.Q<VisualElement>("BtnContainer");
-        btnIsPhishing = btnContainer.Q<Button>("btnIsPhishing");
-        btnNotPhishing = btnContainer.Q<Button>("btnNotPhishing");
-
-        failPopupContainer = root.Q<VisualElement>("FailPopupContainer");
-        successPopupContainer = root.Q<VisualElement>("SuccessPopupContainer");
-
+        btnIsPhishing = root.Q<Button>("btnIsPhishing");
+        btnNotPhishing = root.Q<Button>("btnNotPhishing");
+        parentPopUp = root.Q<VisualElement>("PopUpExplanationContainer");
+        successMsg = root.Q<Label>("successMsg");
         slidesExplanation = root.Query<VisualElement>("Slide").ToList().ToArray();
 
         btnIsPhishing.clicked += OnClickIsPhishing;
@@ -37,23 +37,27 @@ public class GuessTestManager : MonoBehaviour
 
     private void OnClickIsPhishing()
     {
-        timerManager.isTimerRunning = false;
+        parentPopUp.style.display = DisplayStyle.Flex;
+        popupBG.SetActive(true);
+
         if(isPhishing)
         {
-            successPopupContainer.style.display = DisplayStyle.Flex;
+            successMsg.style.display = DisplayStyle.Flex;
             ScoreManager.AddScore(10);
         }else{
-            failPopupContainer.style.display = DisplayStyle.Flex;
+            //failPopupContainer.style.display = DisplayStyle.Flex;
             ScoreManager.AddScore(-10);
         }
     }
 
     private void OnClickIsNotPhishing()
     {   
-        timerManager.StopTimer();
+        parentPopUp.style.display = DisplayStyle.Flex;
+        popupBG.SetActive(true);
+
         if(isPhishing)
         {
-            failPopupContainer.style.display = DisplayStyle.Flex;
+            //failPopupContainer.style.display = DisplayStyle.Flex;
             slidesExplanation[0].style.display = DisplayStyle.Flex;
             ScoreManager.AddScore(-10);
         }else{

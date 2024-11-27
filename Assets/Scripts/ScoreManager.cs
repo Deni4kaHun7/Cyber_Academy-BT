@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class ScoreManager : MonoBehaviour
 {
-    public static int score = 0;
+    public static int score = 10;
     public static Label scoreLabel;
 
     private void Start()
