@@ -17,7 +17,7 @@ public class SlideManager : MonoBehaviour
     private VisualElement prevSlide;
     private VisualElement btnsContainer;
 
-    void Start()
+    private void Start()
     {
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement;
@@ -30,6 +30,31 @@ public class SlideManager : MonoBehaviour
         
         btnPrevSlide = btnsContainer.Query<Button>("btnPrevSlide");
         btnPrevSlide.clicked += OnClickPrevSlide;
+    }
+
+    private void Update()
+    {
+        if(currentSlideIndex == 0)
+        {
+            btnPrevSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.04f);
+            btnPrevSlide.SetEnabled(false);
+        }
+        else 
+        {
+            btnPrevSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 1f);
+            btnPrevSlide.SetEnabled(true);
+        }
+
+        if (currentSlideIndex == slidesArray.Length - 1) 
+        {
+            btnNextSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.04f);
+            btnNextSlide.SetEnabled(false);
+        }
+        else 
+        {
+            btnNextSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 1f);
+            btnNextSlide.SetEnabled(true);
+        }
     }
 
     private void ShowSlide(int index)

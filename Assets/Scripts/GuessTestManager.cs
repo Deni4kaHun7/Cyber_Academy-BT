@@ -14,7 +14,7 @@ public class GuessTestManager : MonoBehaviour
     private Button btnNotPhishing;
     private ScoreManager scoreManager;
     private GameObject popupBG;
-    private  VisualElement parentPopUp;
+    private VisualElement parentPopUp;
     private Label successMsg;
 
     private void Start() 
@@ -37,8 +37,7 @@ public class GuessTestManager : MonoBehaviour
 
     private void OnClickIsPhishing()
     {
-        parentPopUp.style.display = DisplayStyle.Flex;
-        popupBG.SetActive(true);
+        DisableBG();
 
         if(isPhishing)
         {
@@ -52,8 +51,7 @@ public class GuessTestManager : MonoBehaviour
 
     private void OnClickIsNotPhishing()
     {   
-        parentPopUp.style.display = DisplayStyle.Flex;
-        popupBG.SetActive(true);
+        DisableBG();
 
         if(isPhishing)
         {
@@ -64,5 +62,13 @@ public class GuessTestManager : MonoBehaviour
             successPopupContainer.style.display = DisplayStyle.Flex;
             ScoreManager.AddScore(10);
         }
+    }
+
+    private void DisableBG()
+    {
+        parentPopUp.style.display = DisplayStyle.Flex;
+        popupBG.SetActive(true);
+        btnIsPhishing.SetEnabled(false);
+        btnNotPhishing.SetEnabled(false);
     }
 }
