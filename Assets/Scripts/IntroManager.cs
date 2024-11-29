@@ -32,6 +32,7 @@ public class IntroManager : MonoBehaviour
         introPopup.style.display = DisplayStyle.Flex;
 
         btnHideIntro.clicked += OnClickHideIntro;
+        scoreLabel.style.color = new Color(219f ,106f ,0f, 0.02f);
     }
 
     private void OnClickHideIntro(){
@@ -39,5 +40,6 @@ public class IntroManager : MonoBehaviour
         popupBG.SetActive(false);
         canvas.enabled = true;
         Debug.Log("dsdsd");
+        ScoreManager.scoreLabel.style.color = new Color(219f ,106f ,0f, 1f);
     }
 }

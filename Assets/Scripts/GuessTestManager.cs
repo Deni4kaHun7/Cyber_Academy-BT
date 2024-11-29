@@ -8,19 +8,20 @@ public class GuessTestManager : MonoBehaviour
 {
     [SerializeField] private bool isPhishing;
     private VisualElement successPopupContainer;
-    private VisualElement failPopupContainer;
-    private VisualElement[] slidesExplanation;
+    private VisualElement slidesContainer;
+    private Label[] slidesExplanation;
     private Button btnIsPhishing;
     private Button btnNotPhishing;
     private ScoreManager scoreManager;
     private GameObject popupBG;
     private VisualElement parentPopUp;
-    private Label successMsg;
+    private Canvas canvas;
 
     private void Start() 
     {
         popupBG = GameObject.Find("PopupBG");
         scoreManager = FindObjectOfType<ScoreManager>();
+        canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
 
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement;
@@ -28,8 +29,8 @@ public class GuessTestManager : MonoBehaviour
         btnIsPhishing = root.Q<Button>("btnIsPhishing");
         btnNotPhishing = root.Q<Button>("btnNotPhishing");
         parentPopUp = root.Q<VisualElement>("PopUpExplanationContainer");
-        successMsg = root.Q<Label>("successMsg");
-        slidesExplanation = root.Query<VisualElement>("Slide").ToList().ToArray();
+        slidesContainer = root.Q<VisualElement>("Slides");
+        slidesExplanation = slidesContainer.Query<Label>().ToList().ToArray();
 
         btnIsPhishing.clicked += OnClickIsPhishing;
         btnNotPhishing.clicked += OnClickIsNotPhishing; 
@@ -41,16 +42,10 @@ public class GuessTestManager : MonoBehaviour
 
         if(isPhishing)
         {
-            successMsg.style.display = DisplayStyle.Flex;
-            ScoreManager.AddScore(10);
-
-            for(int i = slidesExplanation.Length - 1; i>=0; i--)
-            {
-                slidesExplanation[i].RemoveFromHierarchy();
-            }
+           ShowSuccessMsg();
+            
         }else{
-            slidesExplanation[0].style.display = DisplayStyle.Flex;
-            ScoreManager.AddScore(-10);
+            ShowFailureMsg();
         }
     }
 
@@ -60,11 +55,9 @@ public class GuessTestManager : MonoBehaviour
 
         if(isPhishing)
         {
-            slidesExplanation[0].style.display = DisplayStyle.Flex;
-            ScoreManager.AddScore(-10);
+            ShowFailureMsg();
         }else{
-            successPopupContainer.style.display = DisplayStyle.Flex;
-            ScoreManager.AddScore(10);
+            ShowSuccessMsg();
         }
     }
 
@@ -74,5 +67,22 @@ public class GuessTestManager : MonoBehaviour
         popupBG.SetActive(true);
         btnIsPhishing.SetEnabled(false);
         btnNotPhishing.SetEnabled(false);
+        canvas.enabled = false;
+        slidesContainer.style.display = DisplayStyle.Flex;
+        ScoreManager.scoreLabel.style.color = new Color(219f ,106f ,0f, 0.02f);
+    }
+
+    private void ShowSuccessMsg()
+    {
+        ScoreManager.AddScore(10);
+        Label firstSlide = slidesExplanation[0];
+        firstSlide.text = "Good Job! Let's take a closer look at this example.\n" + firstSlide.text;
+    }
+
+    private void ShowFailureMsg()
+    {
+        ScoreManager.AddScore(-10);
+        Label firstSlide = slidesExplanation[0];
+        firstSlide.text = "Wrong! Let's take a closer look at what you missed.\n" + firstSlide.text;
     }
 }
