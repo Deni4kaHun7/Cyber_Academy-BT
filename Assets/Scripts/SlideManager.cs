@@ -6,30 +6,37 @@ using UnityEngine.SceneManagement;
 
 public class SlideManager : MonoBehaviour
 {
-    [SerializeField] private string slideName;
+    [SerializeField] private string slideContainerName;
     [SerializeField] private string btnsContainerName;
-
+    //[SerializeField] private string slideParentName;
     private int currentSlideIndex = 0;
     private Button btnNextSlide;
     private Button btnPrevSlide;
-    private VisualElement[] slidesArray;
+    private Button btnFinishTest;
+    private Label[] slidesArray;
     private VisualElement nextSlide;
     private VisualElement prevSlide;
     private VisualElement btnsContainer;
+    private VisualElement slideParentContainer;
 
     private void Start()
     {
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement;
 
-        slidesArray = root.Query<VisualElement>(slideName).ToList().ToArray();
+        slideParentContainer = root.Q<VisualElement>(slideContainerName);
+        slidesArray = slideParentContainer.Query<Label>().ToList().ToArray();
 
-        btnsContainer = root.Query<VisualElement>(btnsContainerName);
+        btnsContainer = root.Q<VisualElement>(btnsContainerName);
         btnNextSlide = btnsContainer.Query<Button>("btnNextSlide");
+        Debug.Log(btnsContainer);
         btnNextSlide.clicked += OnClickNextSlide;
         
-        btnPrevSlide = btnsContainer.Query<Button>("btnPrevSlide");
+        btnPrevSlide = btnsContainer.Q<Button>("btnPrevSlide");
         btnPrevSlide.clicked += OnClickPrevSlide;
+
+        btnFinishTest = root.Q<Button>("btnFinishTest");
+        //btnFinishTest.clicked += OnClickFinishTest;
     }
 
     private void Update()
@@ -55,6 +62,14 @@ public class SlideManager : MonoBehaviour
             btnNextSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 1f);
             btnNextSlide.SetEnabled(true);
         }
+
+        if (slidesArray.Length == 1) 
+        {
+            btnNextSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.04f);
+            btnNextSlide.SetEnabled(false);
+            btnPrevSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.04f);
+            btnPrevSlide.SetEnabled(false);
+        }
     }
 
     private void ShowSlide(int index)
@@ -67,7 +82,7 @@ public class SlideManager : MonoBehaviour
         slidesArray[currentSlideIndex].style.display = DisplayStyle.None;
         currentSlideIndex ++;
         ShowSlide(currentSlideIndex);
-
+        Debug.Log("dsds");
        /*  var nextSlideIndex = currentSlideIndex + 1;
         if(nextSlideIndex == slidesArray.Length)
         {
@@ -81,5 +96,14 @@ public class SlideManager : MonoBehaviour
         slidesArray[currentSlideIndex].style.display = DisplayStyle.None;
         currentSlideIndex --;
         ShowSlide(currentSlideIndex);
+    }
+
+    private void OnClickFinishTest()
+    {
+        var uiDocument = GameObject.FindObjectOfType<UIDocument>();
+        var root = uiDocument.rootVisualElement;
+
+        slidesArray = slideParentContainer.Query<Label>().ToList().ToArray();
+        Debug.Log(slidesArray.Length);
     }
 }

@@ -9,8 +9,9 @@ public class HintObjectManager : MonoBehaviour
 {
     [SerializeField] private bool hasIntro;
     private static List<GameObject> hintObjects;
-    private static List<VisualElement> popUpsExplanation;
+    private static List<Label> popUpsExplanation;
     private static VisualElement parentPopUp;
+    private static VisualElement slidesContainer;
     private VisualElement introToLevel;
     private Button btnFinishTest;
     private Label successMsg;
@@ -28,9 +29,9 @@ public class HintObjectManager : MonoBehaviour
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement; 
 
-        popUpsExplanation = root.Query<VisualElement>("Slide").ToList();
-        popUpsExplanation.Reverse();
         parentPopUp = root.Q<VisualElement>("PopUpExplanationContainer");
+        slidesContainer = parentPopUp.Q<VisualElement>("Slides");
+        popUpsExplanation = slidesContainer.Query<Label>().ToList();
 
         introToLevel = root.Q<VisualElement>("IntroToLevelContainer");
 
@@ -45,14 +46,19 @@ public class HintObjectManager : MonoBehaviour
         for (int i = hintObjects.Count - 1; i >= 0; i--)
         {   
             if(hintObjects[i].name == currentHintObject.name)
-            {
+            {   
                 ScoreManager.AddScore(5);
-
                 hintObjects.Remove(currentHintObject);
                 Destroy(currentHintObject);
                 
-                parentPopUp.Remove(popUpsExplanation[i]);
-                popUpsExplanation.Remove(popUpsExplanation[i]);
+                for (int b = popUpsExplanation.Count - 1; b>=0; b--)
+                {
+                    if (popUpsExplanation[b].name == currentHintObject.name)
+                    {
+                        popUpsExplanation[b].RemoveFromHierarchy();
+                        popUpsExplanation.Remove(popUpsExplanation[b]);
+                    }
+                }
             }
         }
     }
@@ -65,19 +71,14 @@ public class HintObjectManager : MonoBehaviour
         }
         else 
         {
-            popUpsExplanation.Reverse();
+            Label firstSlide = popUpsExplanation[0];
+            firstSlide.text = "Good Try! Now lets see what you missed.\n" + firstSlide.text;
 
-            VisualElement firstSlide = popUpsExplanation[0];
-            Label firstSlideText = firstSlide.Q<Label>("Label");
-            firstSlideText.text = "Good Try! Now lets see what you missed.\n" + firstSlideText.text;
-            
-            popUpsExplanation[0].style.display = DisplayStyle.Flex;
+            firstSlide.style.display = DisplayStyle.Flex;
         }
         parentPopUp.style.display = DisplayStyle.Flex;
 
-        btnFinishTest.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.02f);
         btnFinishTest.SetEnabled(false);
-        ScoreManager.scoreLabel.style.color = new Color(219f ,106f ,0f, 0.02f);
 
         popupBG.SetActive(true);
         canvas.enabled = false;

@@ -43,8 +43,13 @@ public class GuessTestManager : MonoBehaviour
         {
             successMsg.style.display = DisplayStyle.Flex;
             ScoreManager.AddScore(10);
+
+            for(int i = slidesExplanation.Length - 1; i>=0; i--)
+            {
+                slidesExplanation[i].RemoveFromHierarchy();
+            }
         }else{
-            //failPopupContainer.style.display = DisplayStyle.Flex;
+            slidesExplanation[0].style.display = DisplayStyle.Flex;
             ScoreManager.AddScore(-10);
         }
     }
@@ -55,7 +60,6 @@ public class GuessTestManager : MonoBehaviour
 
         if(isPhishing)
         {
-            //failPopupContainer.style.display = DisplayStyle.Flex;
             slidesExplanation[0].style.display = DisplayStyle.Flex;
             ScoreManager.AddScore(-10);
         }else{
