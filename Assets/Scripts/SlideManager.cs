@@ -13,11 +13,14 @@ public class SlideManager : MonoBehaviour
     private Button btnNextSlide;
     private Button btnPrevSlide;
     private Button btnFinishTest;
+    private Button btnIsPhishing;
+    private Button btnNotPhishing;
     private Label[] slidesArray;
     private VisualElement nextSlide;
     private VisualElement prevSlide;
     private VisualElement btnsContainer;
     private VisualElement slideParentContainer;
+    private bool isUpdateEnabled = true;
 
     private void Start()
     {
@@ -29,27 +32,42 @@ public class SlideManager : MonoBehaviour
 
         btnsContainer = root.Q<VisualElement>(btnsContainerName);
         btnNextSlide = btnsContainer.Query<Button>("btnNextSlide");
-        Debug.Log(btnsContainer);
         btnNextSlide.clicked += OnClickNextSlide;
         
         btnPrevSlide = btnsContainer.Q<Button>("btnPrevSlide");
         btnPrevSlide.clicked += OnClickPrevSlide;
 
         btnFinishTest = root.Q<Button>("btnFinishTest");
+        if(btnFinishTest == null)
+        {
+            btnIsPhishing = root.Q<Button>("btnIsPhishing");
+            btnNotPhishing = root.Q<Button>("btnNotPhishing");
+            btnIsPhishing.clicked += UpdateSlidesArray;
+            btnNotPhishing.clicked += UpdateSlidesArray;
+        }
+        else 
+        {
+            btnFinishTest.clicked += UpdateSlidesArray;
+        }
         //btnFinishTest.clicked += OnClickFinishTest;
     }
 
     private void Update()
     {
-        if(currentSlideIndex == 0)
+        if(!isUpdateEnabled)
         {
-            btnPrevSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.04f);
-            btnPrevSlide.SetEnabled(false);
+            return;
         }
-        else 
+
+        if(currentSlideIndex != 0)
         {
             btnPrevSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 1f);
             btnPrevSlide.SetEnabled(true);
+        }
+        else if (currentSlideIndex == 0)
+        {
+            btnPrevSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.04f);
+            btnPrevSlide.SetEnabled(false);
         }
 
         if (currentSlideIndex == slidesArray.Length - 1) 
@@ -61,14 +79,6 @@ public class SlideManager : MonoBehaviour
         {
             btnNextSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 1f);
             btnNextSlide.SetEnabled(true);
-        }
-
-        if (slidesArray.Length == 1) 
-        {
-            btnNextSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.04f);
-            btnNextSlide.SetEnabled(false);
-            btnPrevSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.04f);
-            btnPrevSlide.SetEnabled(false);
         }
     }
 
@@ -82,13 +92,6 @@ public class SlideManager : MonoBehaviour
         slidesArray[currentSlideIndex].style.display = DisplayStyle.None;
         currentSlideIndex ++;
         ShowSlide(currentSlideIndex);
-        Debug.Log("dsds");
-       /*  var nextSlideIndex = currentSlideIndex + 1;
-        if(nextSlideIndex == slidesArray.Length)
-        {
-            btnNextLevel.style.display = DisplayStyle.Flex;
-            btnNextSlide.SetEnabled(false);
-        }  */
     }
 
     private void OnClickPrevSlide()
@@ -98,12 +101,20 @@ public class SlideManager : MonoBehaviour
         ShowSlide(currentSlideIndex);
     }
 
-    private void OnClickFinishTest()
+    private void UpdateSlidesArray()
     {
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement;
 
         slidesArray = slideParentContainer.Query<Label>().ToList().ToArray();
-        Debug.Log(slidesArray.Length);
+
+        if (slidesArray.Length < 2) 
+        {
+            btnNextSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.04f);
+            btnNextSlide.SetEnabled(false);
+            btnPrevSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.04f);
+            btnPrevSlide.SetEnabled(false);
+            isUpdateEnabled = false;
+        }
     }
 }

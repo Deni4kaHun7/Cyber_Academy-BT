@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/HintTest.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
+    path: Assets/Scenes/HintTest 1.unity
+    guid: cba5a7419dafc4f7c814f34f4c764c07
+  - enabled: 1
     path: Assets/Scenes/TimerTest.unity
     guid: 73f8248de14d24052935fba766b27e51
   - enabled: 1
