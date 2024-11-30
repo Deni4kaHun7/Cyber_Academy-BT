@@ -7,9 +7,7 @@ public class TimerManager : MonoBehaviour
 {
     [SerializeField] private float timeLimit;
     private Label timerLabel;
-    private VisualElement introToTimerText;
-    private VisualElement failTimerText;
-    private VisualElement timerIntroContainer;
+    private VisualElement failTimerContainer;
     private Button btnRestart;
     private Button btnStartTimer;
     private Button btnIsPhishing;
@@ -17,10 +15,12 @@ public class TimerManager : MonoBehaviour
     private float timeRemaining;
     public bool isTimerRunning = false;
     private GameObject popupBG;
+    private Canvas canvas;
 
     private void Start() 
     {
         popupBG = GameObject.Find("PopupBG");
+        canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
 
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement;
@@ -29,9 +29,7 @@ public class TimerManager : MonoBehaviour
 
         btnRestart= root.Q<Button>("btnRestartTimer");
 
-        timerIntroContainer = root.Q<VisualElement>("IntroToTimerContainer");
-        introToTimerText = root.Q<VisualElement>("IntroText");
-        failTimerText = root.Q<VisualElement>("FailText");
+        failTimerContainer = root.Q<VisualElement>("FailTimerContainer");
         btnStartTimer = root.Q<Button>("btnHideIntro");
         btnIsPhishing = root.Q<Button>("btnIsPhishing");
         btnNotPhishing = root.Q<Button>("btnNotPhishing");
@@ -42,7 +40,7 @@ public class TimerManager : MonoBehaviour
         btnIsPhishing.clicked += StopTimer;
         btnNotPhishing.clicked += StopTimer;
         
-        timerIntroContainer.style.display = DisplayStyle.Flex;
+        //timerIntroContainer.style.display = DisplayStyle.Flex;
     }
 
     private void Update()
@@ -51,9 +49,9 @@ public class TimerManager : MonoBehaviour
         {
             timeRemaining = 0;
             timerLabel.text = "00:00";
-            timerIntroContainer.style.display = DisplayStyle.Flex;
-            introToTimerText.style.display = DisplayStyle.None;
-            failTimerText.style.display = DisplayStyle.Flex;
+            timerLabel.style.display = DisplayStyle.None;
+            failTimerContainer.style.display = DisplayStyle.Flex;
+            canvas.enabled = false;
             popupBG.SetActive(true);
 
         }
@@ -77,17 +75,15 @@ public class TimerManager : MonoBehaviour
     {
         timeRemaining = timeLimit;
         isTimerRunning = true;
-        timerIntroContainer.style.display = DisplayStyle.None;
-        introToTimerText.style.display = DisplayStyle.Flex;
-        failTimerText.style.display = DisplayStyle.None;
+        failTimerContainer.style.display = DisplayStyle.None;
         popupBG.SetActive(false);
+        canvas.enabled = true;
+        timerLabel.style.display = DisplayStyle.Flex;
     }
 
     private void AddTimer()
     {
-        timerIntroContainer.style.display = DisplayStyle.None;
         timerLabel.style.display = DisplayStyle.Flex;
-        popupBG.SetActive(false);
 
         isTimerRunning = true;
         timeRemaining = timeLimit;
@@ -96,5 +92,6 @@ public class TimerManager : MonoBehaviour
     public void StopTimer()
     {
         isTimerRunning = false;
+        timerLabel.style.display = DisplayStyle.None;
     }
 }

@@ -2003,7 +2003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 603e9b2d51e324a37988b31ba5e29533, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slideName: SlideIntro
+  slideContainerName: Slides
   btnsContainerName: ExplanationBtnsContainer
 --- !u!4 &1078917310
 Transform:
@@ -2515,8 +2515,8 @@ Transform:
   m_GameObject: {fileID: 1314256310}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 1, z: -0.113254115}
-  m_LocalScale: {x: 1, y: 1.16, z: 28.05}
+  m_LocalPosition: {x: 1, y: 1, z: -6.2}
+  m_LocalScale: {x: 1, y: 1.16, z: 11.32}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1623016397}
@@ -2847,6 +2847,149 @@ SpriteRenderer:
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.64, y: 0.32}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!1 &1494234282
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1494234283}
+  - component: {fileID: 1494234286}
+  - component: {fileID: 1494234285}
+  - component: {fileID: 1494234284}
+  m_Layer: 0
+  m_Name: ClickItem3
+  m_TagString: HintObject
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1494234283
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494234282}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.237, y: -2.9606, z: -1327.1}
+  m_LocalScale: {x: 3.1502354, y: 0.26253897, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2063234878}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1494234284
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494234282}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &1494234285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494234282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddc3d4cdf3fad4e319f2782de1761f50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!212 &1494234286
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494234282}
+  m_Enabled: 0
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -3568,6 +3711,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!4 &2063234878 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8192983983457334262, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
+  m_PrefabInstance: {fileID: 3501815220340607411}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2069369179
 GameObject:
   m_ObjectHideFlags: 0
@@ -3809,7 +3957,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 603e9b2d51e324a37988b31ba5e29533, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slideName: SlideIntro
+  slideContainerName: SlidesIntro
   btnsContainerName: IntroBtnsContainer
 --- !u!4 &2112405368
 Transform:
@@ -3838,6 +3986,22 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 803282928419648991, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1055.0693
+      objectReference: {fileID: 0}
+    - target: {fileID: 803282928419648991, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 565.0964
+      objectReference: {fileID: 0}
+    - target: {fileID: 803282928419648991, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -207.77814
+      objectReference: {fileID: 0}
+    - target: {fileID: 803282928419648991, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 111.98658
+      objectReference: {fileID: 0}
     - target: {fileID: 934358099892578030, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
       propertyPath: m_Color.b
       value: 0
@@ -3852,7 +4016,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 934358099892578030, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1102858063898436742, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
       propertyPath: m_Color.b
@@ -3868,7 +4032,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1102858063898436742, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2011320877953325413, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
       propertyPath: m_LocalScale.x
@@ -3890,6 +4054,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -4.0765
       objectReference: {fileID: 0}
+    - target: {fileID: 2335970833828472400, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
+      propertyPath: m_text
+      value: http://spotify-secure-login.com/verify
+      objectReference: {fileID: 0}
     - target: {fileID: 2508338894104311633, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.21
@@ -3899,20 +4067,32 @@ PrefabInstance:
       value: -1460.62
       objectReference: {fileID: 0}
     - target: {fileID: 2517667896911242743, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4.161035
+      objectReference: {fileID: 0}
+    - target: {fileID: 2517667896911242743, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.3231565
+      objectReference: {fileID: 0}
+    - target: {fileID: 2517667896911242743, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
       propertyPath: m_LocalScale.z
       value: -4.17
       objectReference: {fileID: 0}
     - target: {fileID: 2517667896911242743, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.36
+      value: -0.6246
       objectReference: {fileID: 0}
     - target: {fileID: 2517667896911242743, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.79
+      value: -1.0228
       objectReference: {fileID: 0}
     - target: {fileID: 2517667896911242743, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
       propertyPath: m_LocalPosition.z
       value: -1328.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808247341190455379, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3412083212620230282, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -3963,12 +4143,28 @@ PrefabInstance:
       value: HintObject
       objectReference: {fileID: 0}
     - target: {fileID: 4935069597122658305, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.6793905
+      objectReference: {fileID: 0}
+    - target: {fileID: 4935069597122658305, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2911032
+      objectReference: {fileID: 0}
+    - target: {fileID: 4935069597122658305, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.52
+      value: -3.9934
+      objectReference: {fileID: 0}
+    - target: {fileID: 4935069597122658305, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.0323
       objectReference: {fileID: 0}
     - target: {fileID: 4935069597122658305, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
       propertyPath: m_LocalPosition.z
       value: -1327.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4990601333706046652, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
+      propertyPath: m_text
+      value: support@spotify-secure.com
       objectReference: {fileID: 0}
     - target: {fileID: 5154575558751021545, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
       propertyPath: m_Name
@@ -3976,7 +4172,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5154575558751021545, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6211687102815607959, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3985,6 +4181,15 @@ PrefabInstance:
     - target: {fileID: 6211687102815607959, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
       propertyPath: m_LocalPosition.z
       value: -1461
+      objectReference: {fileID: 0}
+    - target: {fileID: 6288078239669464507, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
+      propertyPath: m_text
+      value: "Dear Valued User,\n\nWe recently noticed a problem with your account
+        and need you to verify your information to continue enjoying uninterrupted
+        access to your playlists. Please click the link below to confirm your account
+        details:\n\n\nIf you don\u2019t complete this verification within 48 hours,
+        your account may be temporarily disabled.\n\nThank you for being a part of
+        the Spotify community.\n\nSincerely,\nSpotify Support Team"
       objectReference: {fileID: 0}
     - target: {fileID: 6706703728330910678, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
       propertyPath: m_Name
@@ -4005,6 +4210,10 @@ PrefabInstance:
     - target: {fileID: 7078416778588857772, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
       propertyPath: m_TagString
       value: HintObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 7174387870006563303, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7398676516482062343, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
       propertyPath: m_IsActive
@@ -4078,12 +4287,26 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 8281501015136324226, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
+      propertyPath: m_text
+      value: 'Action Required: Verify Your Spotify Account'
+      objectReference: {fileID: 0}
+    - target: {fileID: 9143034576351137981, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 40.9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 7078416778588857772, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
     - {fileID: 3652642973328166361, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
     - {fileID: 2436904143357962167, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
-    m_AddedGameObjects: []
+    - {fileID: 7398676516482062343, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
+    - {fileID: 8163692779562852405, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
+    - {fileID: 3249878396708726300, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8192983983457334262, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1494234283}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ca72d5e8370d4ff48e62965d3492c1e, type: 3}
 --- !u!1660057539 &9223372036854775807

@@ -6,30 +6,80 @@ using UnityEngine.SceneManagement;
 
 public class SlideManager : MonoBehaviour
 {
-    [SerializeField] private string slideName;
+    [SerializeField] private string slideContainerName;
     [SerializeField] private string btnsContainerName;
-
+    //[SerializeField] private string slideParentName;
     private int currentSlideIndex = 0;
     private Button btnNextSlide;
     private Button btnPrevSlide;
-    private VisualElement[] slidesArray;
+    private Button btnFinishTest;
+    private Button btnIsPhishing;
+    private Button btnNotPhishing;
+    private Label[] slidesArray;
     private VisualElement nextSlide;
     private VisualElement prevSlide;
     private VisualElement btnsContainer;
+    private VisualElement slideParentContainer;
+    private bool isUpdateEnabled = true;
 
-    void Start()
+    private void Start()
     {
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement;
 
-        slidesArray = root.Query<VisualElement>(slideName).ToList().ToArray();
+        slideParentContainer = root.Q<VisualElement>(slideContainerName);
+        slidesArray = slideParentContainer.Query<Label>().ToList().ToArray();
 
-        btnsContainer = root.Query<VisualElement>(btnsContainerName);
+        btnsContainer = root.Q<VisualElement>(btnsContainerName);
         btnNextSlide = btnsContainer.Query<Button>("btnNextSlide");
         btnNextSlide.clicked += OnClickNextSlide;
         
-        btnPrevSlide = btnsContainer.Query<Button>("btnPrevSlide");
+        btnPrevSlide = btnsContainer.Q<Button>("btnPrevSlide");
         btnPrevSlide.clicked += OnClickPrevSlide;
+
+        btnFinishTest = root.Q<Button>("btnFinishTest");
+        if(btnFinishTest == null)
+        {
+            btnIsPhishing = root.Q<Button>("btnIsPhishing");
+            btnNotPhishing = root.Q<Button>("btnNotPhishing");
+            btnIsPhishing.clicked += UpdateSlidesArray;
+            btnNotPhishing.clicked += UpdateSlidesArray;
+        }
+        else 
+        {
+            btnFinishTest.clicked += UpdateSlidesArray;
+        }
+        //btnFinishTest.clicked += OnClickFinishTest;
+    }
+
+    private void Update()
+    {
+        if(!isUpdateEnabled)
+        {
+            return;
+        }
+
+        if(currentSlideIndex != 0)
+        {
+            btnPrevSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 1f);
+            btnPrevSlide.SetEnabled(true);
+        }
+        else if (currentSlideIndex == 0)
+        {
+            btnPrevSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.04f);
+            btnPrevSlide.SetEnabled(false);
+        }
+
+        if (currentSlideIndex == slidesArray.Length - 1) 
+        {
+            btnNextSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.04f);
+            btnNextSlide.SetEnabled(false);
+        }
+        else 
+        {
+            btnNextSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 1f);
+            btnNextSlide.SetEnabled(true);
+        }
     }
 
     private void ShowSlide(int index)
@@ -42,13 +92,6 @@ public class SlideManager : MonoBehaviour
         slidesArray[currentSlideIndex].style.display = DisplayStyle.None;
         currentSlideIndex ++;
         ShowSlide(currentSlideIndex);
-
-       /*  var nextSlideIndex = currentSlideIndex + 1;
-        if(nextSlideIndex == slidesArray.Length)
-        {
-            btnNextLevel.style.display = DisplayStyle.Flex;
-            btnNextSlide.SetEnabled(false);
-        }  */
     }
 
     private void OnClickPrevSlide()
@@ -56,5 +99,22 @@ public class SlideManager : MonoBehaviour
         slidesArray[currentSlideIndex].style.display = DisplayStyle.None;
         currentSlideIndex --;
         ShowSlide(currentSlideIndex);
+    }
+
+    private void UpdateSlidesArray()
+    {
+        var uiDocument = GameObject.FindObjectOfType<UIDocument>();
+        var root = uiDocument.rootVisualElement;
+
+        slidesArray = slideParentContainer.Query<Label>().ToList().ToArray();
+
+        if (slidesArray.Length < 2) 
+        {
+            btnNextSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.04f);
+            btnNextSlide.SetEnabled(false);
+            btnPrevSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.04f);
+            btnPrevSlide.SetEnabled(false);
+            isUpdateEnabled = false;
+        }
     }
 }
