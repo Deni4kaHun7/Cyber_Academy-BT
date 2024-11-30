@@ -13,12 +13,12 @@ public class ScoreManager : MonoBehaviour
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement;
         scoreLabel = root.Q<Label>("scoreLabel"); 
-        scoreLabel.text = "Score:  " + score.ToString();
+        scoreLabel.text = $"Score:{score}";
     }
 
     public static void AddScore(int points)
     {
         score = Mathf.Max(0, score + points);
-        scoreLabel.text = "Score:  " + score.ToString();
+        scoreLabel.text = $"Score:{score}";
     }
 }

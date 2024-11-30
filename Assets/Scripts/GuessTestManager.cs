@@ -8,28 +8,29 @@ public class GuessTestManager : MonoBehaviour
 {
     [SerializeField] private bool isPhishing;
     private VisualElement successPopupContainer;
-    private VisualElement failPopupContainer;
-    private VisualElement[] slidesExplanation;
+    private VisualElement slidesContainer;
+    private Label[] slidesExplanation;
     private Button btnIsPhishing;
     private Button btnNotPhishing;
-    private TimerManager timerManager;
     private ScoreManager scoreManager;
+    private GameObject popupBG;
+    private VisualElement parentPopUp;
+    private Canvas canvas;
 
     private void Start() 
     {
-        timerManager = FindObjectOfType<TimerManager>();
+        popupBG = GameObject.Find("PopupBG");
         scoreManager = FindObjectOfType<ScoreManager>();
+        canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement;
 
-        var btnContainer = root.Q<VisualElement>("BtnContainer");
-        btnIsPhishing = btnContainer.Q<Button>("btnIsPhishing");
-        btnNotPhishing = btnContainer.Q<Button>("btnNotPhishing");
-
-        failPopupContainer = root.Q<VisualElement>("FailPopupContainer");
-        successPopupContainer = root.Q<VisualElement>("SuccessPopupContainer");
-
-        slidesExplanation = root.Query<VisualElement>("Slide").ToList().ToArray();
+        btnIsPhishing = root.Q<Button>("btnIsPhishing");
+        btnNotPhishing = root.Q<Button>("btnNotPhishing");
+        parentPopUp = root.Q<VisualElement>("PopUpExplanationContainer");
+        slidesContainer = root.Q<VisualElement>("Slides");
+        slidesExplanation = slidesContainer.Query<Label>().ToList().ToArray();
 
         btnIsPhishing.clicked += OnClickIsPhishing;
         btnNotPhishing.clicked += OnClickIsNotPhishing; 
@@ -37,28 +38,51 @@ public class GuessTestManager : MonoBehaviour
 
     private void OnClickIsPhishing()
     {
-        timerManager.isTimerRunning = false;
+        DisableBG();
+
         if(isPhishing)
         {
-            successPopupContainer.style.display = DisplayStyle.Flex;
-            ScoreManager.AddScore(10);
+           ShowSuccessMsg();
+            
         }else{
-            failPopupContainer.style.display = DisplayStyle.Flex;
-            ScoreManager.AddScore(-10);
+            ShowFailureMsg();
         }
     }
 
     private void OnClickIsNotPhishing()
     {   
-        timerManager.StopTimer();
+        DisableBG();
+
         if(isPhishing)
         {
-            failPopupContainer.style.display = DisplayStyle.Flex;
-            slidesExplanation[0].style.display = DisplayStyle.Flex;
-            ScoreManager.AddScore(-10);
+            ShowFailureMsg();
         }else{
-            successPopupContainer.style.display = DisplayStyle.Flex;
-            ScoreManager.AddScore(10);
+            ShowSuccessMsg();
         }
+    }
+
+    private void DisableBG()
+    {
+        parentPopUp.style.display = DisplayStyle.Flex;
+        popupBG.SetActive(true);
+        btnIsPhishing.SetEnabled(false);
+        btnNotPhishing.SetEnabled(false);
+        canvas.enabled = false;
+        slidesContainer.style.display = DisplayStyle.Flex;
+        ScoreManager.scoreLabel.style.color = new Color(219f ,106f ,0f, 0.02f);
+    }
+
+    private void ShowSuccessMsg()
+    {
+        ScoreManager.AddScore(10);
+        Label firstSlide = slidesExplanation[0];
+        firstSlide.text = "Good Job! Let's take a closer look at this example.\n" + firstSlide.text;
+    }
+
+    private void ShowFailureMsg()
+    {
+        ScoreManager.AddScore(-10);
+        Label firstSlide = slidesExplanation[0];
+        firstSlide.text = "Wrong! Let's take a closer look at what you missed.\n" + firstSlide.text;
     }
 }
