@@ -48,8 +48,7 @@ public class SlideManager : MonoBehaviour
         else 
         {
             btnFinishTest.clicked += UpdateSlidesArray;
-        }
-        //btnFinishTest.clicked += OnClickFinishTest;
+        } 
     }
 
     private void Update()
