@@ -12,7 +12,7 @@ public class GuessTestManager : MonoBehaviour
     private Label[] slidesExplanation;
     private Button btnIsPhishing;
     private Button btnNotPhishing;
-    private ScoreManager scoreManager;
+    private Button btnHideIntro;
     private GameObject popupBG;
     private VisualElement parentPopUp;
     private Canvas canvas;
@@ -20,7 +20,6 @@ public class GuessTestManager : MonoBehaviour
     private void Start() 
     {
         popupBG = GameObject.Find("PopupBG");
-        scoreManager = FindObjectOfType<ScoreManager>();
         canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
 
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
@@ -31,9 +30,11 @@ public class GuessTestManager : MonoBehaviour
         parentPopUp = root.Q<VisualElement>("PopUpExplanationContainer");
         slidesContainer = root.Q<VisualElement>("Slides");
         slidesExplanation = slidesContainer.Query<Label>().ToList().ToArray();
+        btnHideIntro = root.Q<Button>("btnHideIntro");
 
         btnIsPhishing.clicked += OnClickIsPhishing;
         btnNotPhishing.clicked += OnClickIsNotPhishing; 
+        btnHideIntro.clicked += EnableBtns;
     }
 
     private void OnClickIsPhishing()
@@ -65,11 +66,16 @@ public class GuessTestManager : MonoBehaviour
     {
         parentPopUp.style.display = DisplayStyle.Flex;
         popupBG.SetActive(true);
+
         btnIsPhishing.SetEnabled(false);
+        btnIsPhishing.style.opacity = .07f;
+
         btnNotPhishing.SetEnabled(false);
+        btnNotPhishing.style.opacity = .07f;
+
         canvas.enabled = false;
         slidesContainer.style.display = DisplayStyle.Flex;
-        ScoreManager.scoreLabel.style.color = new Color(219f ,106f ,0f, 0.02f);
+        ScoreManager.scoreLabel.style.opacity = .07f;
     }
 
     private void ShowSuccessMsg()
@@ -84,5 +90,13 @@ public class GuessTestManager : MonoBehaviour
         ScoreManager.AddScore(-10);
         Label firstSlide = slidesExplanation[0];
         firstSlide.text = "Wrong! Let's take a closer look at what you missed.\n" + firstSlide.text;
+    }
+
+    private void EnableBtns()
+    {
+        btnIsPhishing.SetEnabled(true);
+        btnIsPhishing.style.opacity = 1f;
+        btnNotPhishing.SetEnabled(true);
+        btnNotPhishing.style.opacity = 1f;
     }
 }

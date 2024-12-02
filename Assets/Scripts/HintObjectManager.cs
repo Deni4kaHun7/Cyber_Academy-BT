@@ -7,14 +7,14 @@ using UnityEngine.SceneManagement;
 
 public class HintObjectManager : MonoBehaviour
 {
-    [SerializeField] private bool hasIntro;
     private static List<GameObject> hintObjects;
     private static List<Label> popUpsExplanation;
     private static VisualElement parentPopUp;
     private static VisualElement slidesContainer;
-    private VisualElement introToLevel;
     private Button btnFinishTest;
+    private Button btnHideIntro;
     private Label successMsg;
+    private Label scoreLabel;
     private GameObject popupBG;
     private Canvas canvas;
 
@@ -24,7 +24,6 @@ public class HintObjectManager : MonoBehaviour
         canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         
         hintObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("HintObject"));
-        GameObject parent = GameObject.Find("ClickContainers");
 
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement; 
@@ -32,13 +31,13 @@ public class HintObjectManager : MonoBehaviour
         parentPopUp = root.Q<VisualElement>("PopUpExplanationContainer");
         slidesContainer = parentPopUp.Q<VisualElement>("Slides");
         popUpsExplanation = slidesContainer.Query<Label>().ToList();
-
-        introToLevel = root.Q<VisualElement>("IntroToLevelContainer");
-
-        btnFinishTest = root.Q<Button>("btnFinishTest");
-        btnFinishTest.clicked += OnClickFinishTest;
-
         successMsg = root.Q<Label>("successMsg");
+        scoreLabel = root.Query<Label>("scoreLabel");
+        btnFinishTest = root.Q<Button>("btnFinishTest");
+        btnHideIntro = root.Q<Button>("btnHideIntro");
+        
+        btnFinishTest.clicked += OnClickFinishTest;
+        btnHideIntro.clicked += EnableBtns;
     }
 
     public static void OnClickHintObject(GameObject currentHintObject)
@@ -65,22 +64,46 @@ public class HintObjectManager : MonoBehaviour
 
     private void OnClickFinishTest()
     {   
-        if(popUpsExplanation.Count == 0 ) 
+        // Check if there are any remaining explanation slides (missed suspicious elements).
+        if (popUpsExplanation.Count == 0) 
         {
+            // If no missed elements, display the success message.
             successMsg.style.display = DisplayStyle.Flex;
         }
         else 
         {
+            // If there are missed elements, get the first slide from the list.
             Label firstSlide = popUpsExplanation[0];
-            firstSlide.text = "Good Try! Now lets see what you missed.\n" + firstSlide.text;
+            
+            // Update the first slide's text to include a message indicating what was missed.
+            firstSlide.text = "Good Try! Now let's see what you missed.\n" + firstSlide.text;
 
+            // Display the updated slide.
             firstSlide.style.display = DisplayStyle.Flex;
         }
+
+        // Display the parent container for the explanation pop-up.
         parentPopUp.style.display = DisplayStyle.Flex;
 
+        // Disable the finish test button to prevent multiple clicks.
         btnFinishTest.SetEnabled(false);
 
+        // Set the button's opacity to indicate it is disabled.
+        btnFinishTest.style.opacity = 0.07f;
+
+        // Activate the pop-up background to highlight the explanation area.
         popupBG.SetActive(true);
+
+        // Disable the main canvas to hide the test interface.
         canvas.enabled = false;
+
+        // Reduce the opacity of the score label to draw focus to the explanation pop-up.
+        scoreLabel.style.opacity = 0.07f;
+    }
+
+    private void EnableBtns()
+    {
+        btnFinishTest.SetEnabled(true);
+        btnFinishTest.style.opacity = 1f;
     }
 }
