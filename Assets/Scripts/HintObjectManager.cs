@@ -29,7 +29,7 @@ public class HintObjectManager : MonoBehaviour
         var root = uiDocument.rootVisualElement; 
 
         parentPopUp = root.Q<VisualElement>("PopUpExplanationContainer");
-        slidesContainer = parentPopUp.Q<VisualElement>("Slides");
+        slidesContainer = parentPopUp.Q<VisualElement>("SlidesExplanation");
         popUpsExplanation = slidesContainer.Query<Label>().ToList();
         successMsg = root.Q<Label>("successMsg");
         scoreLabel = root.Query<Label>("scoreLabel");
@@ -38,6 +38,8 @@ public class HintObjectManager : MonoBehaviour
         
         btnFinishTest.clicked += OnClickFinishTest;
         btnHideIntro.clicked += EnableBtns;
+
+        SlideManager.CreateSlideManager("SlidesIntro", "IntroBtnsContainer");
     }
 
     public static void OnClickHintObject(GameObject currentHintObject)
@@ -99,6 +101,9 @@ public class HintObjectManager : MonoBehaviour
 
         // Reduce the opacity of the score label to draw focus to the explanation pop-up.
         scoreLabel.style.opacity = 0.07f;
+
+        // Create a SlideManager to manage slides inside explanation pop-up
+        SlideManager.CreateSlideManager("SlidesExplanation", "ExplanationBtnsContainer");
     }
 
     private void EnableBtns()

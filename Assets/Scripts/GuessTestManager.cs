@@ -28,13 +28,15 @@ public class GuessTestManager : MonoBehaviour
         btnIsPhishing = root.Q<Button>("btnIsPhishing");
         btnNotPhishing = root.Q<Button>("btnNotPhishing");
         parentPopUp = root.Q<VisualElement>("PopUpExplanationContainer");
-        slidesContainer = root.Q<VisualElement>("Slides");
+        slidesContainer = root.Q<VisualElement>("SlidesExplanation");
         slidesExplanation = slidesContainer.Query<Label>().ToList().ToArray();
         btnHideIntro = root.Q<Button>("btnHideIntro");
 
         btnIsPhishing.clicked += OnClickIsPhishing;
         btnNotPhishing.clicked += OnClickIsNotPhishing; 
         btnHideIntro.clicked += EnableBtns;
+
+        SlideManager.CreateSlideManager("SlidesIntro", "IntroBtnsContainer");
     }
 
     private void OnClickIsPhishing()
@@ -76,6 +78,8 @@ public class GuessTestManager : MonoBehaviour
         canvas.enabled = false;
         slidesContainer.style.display = DisplayStyle.Flex;
         ScoreManager.scoreLabel.style.opacity = .07f;
+
+        SlideManager.CreateSlideManager("SlidesExplanation", "ExplanationBtnsContainer");
     }
 
     private void ShowSuccessMsg()

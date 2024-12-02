@@ -6,9 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class SlideManager : MonoBehaviour
 {
-    [SerializeField] private string slideContainerName;
-    [SerializeField] private string btnsContainerName;
-    //[SerializeField] private string slideParentName;
+    public string slideContainerName;
+    public string btnsContainerName;
     private int currentSlideIndex = 0;
     private Button btnNextSlide;
     private Button btnPrevSlide;
@@ -42,12 +41,12 @@ public class SlideManager : MonoBehaviour
         {
             btnIsPhishing = root.Q<Button>("btnIsPhishing");
             btnNotPhishing = root.Q<Button>("btnNotPhishing");
-            btnIsPhishing.clicked += UpdateSlidesArray;
-            btnNotPhishing.clicked += UpdateSlidesArray;
+            //btnIsPhishing.clicked += UpdateSlidesArray;
+            //btnNotPhishing.clicked += UpdateSlidesArray;
         }
         else 
         {
-            btnFinishTest.clicked += UpdateSlidesArray;
+            //btnFinishTest.clicked += UpdateSlidesArray;
         } 
     }
 
@@ -100,7 +99,15 @@ public class SlideManager : MonoBehaviour
         ShowSlide(currentSlideIndex);
     }
 
-    private void UpdateSlidesArray()
+    public static void CreateSlideManager(string slideName, string btnContainer)
+    {
+        GameObject slidesIntroManager = new GameObject("SlidesManager");
+        SlideManager slideManagerScript = slidesIntroManager.AddComponent<SlideManager>();
+        slideManagerScript.slideContainerName = slideName;
+        slideManagerScript.btnsContainerName = btnContainer;
+    }
+
+    /* private void UpdateSlidesArray()
     {
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement;
@@ -115,5 +122,7 @@ public class SlideManager : MonoBehaviour
             btnPrevSlide.SetEnabled(false);
             isUpdateEnabled = false;
         }
-    }
+    } */
+
+ 
 }
