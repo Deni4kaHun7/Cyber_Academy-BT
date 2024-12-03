@@ -92,15 +92,9 @@ public class HintObjectManager : MonoBehaviour
 
         // Set the button's opacity to indicate it is disabled.
         btnFinishTest.style.opacity = 0.07f;
+        ScoreManager.scoreLabel.style.opacity = 0.07f;
 
-        // Activate the pop-up background to highlight the explanation area.
-        popupBG.SetActive(true);
-
-        // Disable the main canvas to hide the test interface.
-        canvas.enabled = false;
-
-        // Reduce the opacity of the score label to draw focus to the explanation pop-up.
-        scoreLabel.style.opacity = 0.07f;
+        PopupManager.OnClickSwitchPopup();
 
         // Create a SlideManager to manage slides inside explanation pop-up
         SlideManager.CreateSlideManager("SlidesExplanation", "ExplanationBtnsContainer");

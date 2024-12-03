@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class IntroManager : MonoBehaviour
+public class PopupManager : MonoBehaviour
 {
     // Background for the pop-up
-    private GameObject popupBG;
+    private static GameObject popupBG;
 
     // Visual element for the introduction pop-up
-    private VisualElement introPopup;
+    private static VisualElement introPopup;
 
     // Button to hide the introduction pop-up
-    private Button btnHideIntro;
+    private static Button btnHideIntro;
 
     // Canvas for the main test UI
-    private Canvas canvas;
+    private static Canvas canvas;
 
     // Start is called before the first frame update
     private void Start()
@@ -35,22 +35,26 @@ public class IntroManager : MonoBehaviour
         introPopup = root.Q<VisualElement>("IntroToLevelContainer");
 
         // Attach the OnClickHideIntro method to the Hide Intro button's click event
+        btnHideIntro.clicked += OnClickSwitchPopup;
         btnHideIntro.clicked += OnClickHideIntro;
     }
 
     // Method called when the "Hide Intro" button is clicked
+    public static void OnClickSwitchPopup()
+    {
+        // Toggle the activation state of the pop-up background
+        popupBG.SetActive(!popupBG.activeSelf);
+
+        // Toggle the main canvas's enabled state
+        canvas.enabled = !canvas.enabled;
+    }
+
     private void OnClickHideIntro()
     {
-        // Hide the introduction pop-up
-        introPopup.style.display = DisplayStyle.None;
+        // Toggle the display state of the introduction pop-up
+        introPopup.style.display = DisplayStyle.None; 
 
-        // Deactivate the pop-up background
-        popupBG.SetActive(false);
-
-        // Enable the main canvas to show the test UI
-        canvas.enabled = true;
-
-        // Reset the score label's opacity to make it fully visible
-        ScoreManager.scoreLabel.style.opacity = 1f;
+        // Toggle the score label's opacity between fully visible and partially transparent
+        ScoreManager.scoreLabel.style.opacity = 1f;  
     }
 }
