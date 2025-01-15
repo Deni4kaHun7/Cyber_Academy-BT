@@ -35,12 +35,12 @@ public class PopupManager : MonoBehaviour
         introPopup = root.Q<VisualElement>("IntroToLevelContainer");
 
         // Attach the OnClickHideIntro method to the Hide Intro button's click event
-        btnHideIntro.clicked += OnClickSwitchPopup;
+        btnHideIntro.clicked += SwitchPopup;
         btnHideIntro.clicked += OnClickHideIntro;
     }
 
     // Method called when the "Hide Intro" button is clicked
-    public static void OnClickSwitchPopup()
+    public static void SwitchPopup()
     {
         // Toggle the activation state of the pop-up background
         popupBG.SetActive(!popupBG.activeSelf);
@@ -53,8 +53,29 @@ public class PopupManager : MonoBehaviour
     {
         // Toggle the display state of the introduction pop-up
         introPopup.style.display = DisplayStyle.None; 
+    }
+
+    public static void EnableButtons(params Button[] buttons)
+    {
+        foreach (var button in buttons)
+        {
+            button.SetEnabled(true);
+            button.style.opacity = 1f;
+        }
 
         // Toggle the score label's opacity between fully visible and partially transparent
         ScoreManager.scoreLabel.style.opacity = 1f;  
+    }
+
+    public static void DisableButtons(params Button[] buttons)
+    {
+        foreach (var button in buttons)
+        {
+            button.SetEnabled(false);
+            button.style.opacity = 0.07f;
+        }
+
+        // Toggle the score label's opacity between fully visible and partially transparent
+        ScoreManager.scoreLabel.style.opacity = .07f;  
     }
 }

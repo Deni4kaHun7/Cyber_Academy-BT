@@ -13,15 +13,11 @@ public class GuessTestManager : MonoBehaviour
     private Button btnIsPhishing;
     private Button btnNotPhishing;
     private Button btnHideIntro;
-    private GameObject popupBG;
     private VisualElement parentPopUp;
-    private Canvas canvas;
+
 
     private void Start() 
     {
-        popupBG = GameObject.Find("PopupBG");
-        canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
-
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement;
 
@@ -34,6 +30,7 @@ public class GuessTestManager : MonoBehaviour
 
         btnIsPhishing.clicked += OnClickIsPhishing;
         btnNotPhishing.clicked += OnClickIsNotPhishing; 
+
         btnHideIntro.clicked += EnableBtns;
 
         SlideManager.CreateSlideManager("SlidesIntro", "IntroBtnsContainer");
@@ -41,7 +38,7 @@ public class GuessTestManager : MonoBehaviour
 
     private void OnClickIsPhishing()
     {
-        DisableBG();
+        DisableBg();
 
         if(isPhishing)
         {
@@ -54,7 +51,7 @@ public class GuessTestManager : MonoBehaviour
 
     private void OnClickIsNotPhishing()
     {   
-        DisableBG();
+        DisableBg();
 
         if(isPhishing)
         {
@@ -64,20 +61,12 @@ public class GuessTestManager : MonoBehaviour
         }
     }
 
-    private void DisableBG()
+    private void DisableBg()
     {
         parentPopUp.style.display = DisplayStyle.Flex;
-        popupBG.SetActive(true);
 
-        btnIsPhishing.SetEnabled(false);
-        btnIsPhishing.style.opacity = .07f;
-
-        btnNotPhishing.SetEnabled(false);
-        btnNotPhishing.style.opacity = .07f;
-
-        canvas.enabled = false;
-        slidesContainer.style.display = DisplayStyle.Flex;
-        ScoreManager.scoreLabel.style.opacity = .07f;
+        PopupManager.DisableButtons(btnIsPhishing, btnNotPhishing);
+        PopupManager.SwitchPopup();
 
         SlideManager.CreateSlideManager("SlidesExplanation", "ExplanationBtnsContainer");
     }
@@ -98,9 +87,6 @@ public class GuessTestManager : MonoBehaviour
 
     private void EnableBtns()
     {
-        btnIsPhishing.SetEnabled(true);
-        btnIsPhishing.style.opacity = 1f;
-        btnNotPhishing.SetEnabled(true);
-        btnNotPhishing.style.opacity = 1f;
+        PopupManager.EnableButtons(btnIsPhishing, btnNotPhishing);
     }
 }

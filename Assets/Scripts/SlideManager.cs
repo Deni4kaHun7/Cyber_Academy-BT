@@ -48,23 +48,23 @@ public class SlideManager : MonoBehaviour
 
         if(currentSlideIndex != 0)
         {
-            btnPrevSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 1f);
+            btnPrevSlide.style.opacity = 1f;
             btnPrevSlide.SetEnabled(true);
         }
         else if (currentSlideIndex == 0)
         {
-            btnPrevSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.04f);
+            btnPrevSlide.style.opacity = .07f;
             btnPrevSlide.SetEnabled(false);
         }
 
         if (currentSlideIndex == slidesArray.Length - 1) 
         {
-            btnNextSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.04f);
+            btnNextSlide.style.opacity = .07f;
             btnNextSlide.SetEnabled(false);
         }
         else 
         {
-            btnNextSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 1f);
+            btnNextSlide.style.opacity = 1f;
             btnNextSlide.SetEnabled(true);
         }
     }

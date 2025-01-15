@@ -13,15 +13,10 @@ public class TimerManager : MonoBehaviour
     private Button btnIsPhishing;
     private Button btnNotPhishing;
     private float timeRemaining;
-    public bool isTimerRunning = false;
-    private GameObject popupBG;
-    private Canvas canvas;
+    public static bool isTimerRunning = false;
 
     private void Start() 
     {
-        popupBG = GameObject.Find("PopupBG");
-        canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
-
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement;
 
@@ -39,8 +34,6 @@ public class TimerManager : MonoBehaviour
 
         btnIsPhishing.clicked += StopTimer;
         btnNotPhishing.clicked += StopTimer;
-        
-        //timerIntroContainer.style.display = DisplayStyle.Flex;
     }
 
     private void Update()
@@ -49,10 +42,9 @@ public class TimerManager : MonoBehaviour
         {
             timeRemaining = 0;
             timerLabel.text = "00:00";
-            timerLabel.style.display = DisplayStyle.None;
+            StopTimer();
             failTimerContainer.style.display = DisplayStyle.Flex;
-            canvas.enabled = false;
-            popupBG.SetActive(true);
+            PopupManager.SwitchPopup();
 
         }
         else if(isTimerRunning)
@@ -63,12 +55,25 @@ public class TimerManager : MonoBehaviour
             var seconds = Mathf.FloorToInt(timeRemaining % 60);
             if(seconds < 10)
             {
-                timerLabel.text = minutes.ToString() + ":0" + seconds;
+                timerLabel.text = minutes + ":0" + seconds;
             }else
             {
-                timerLabel.text = minutes.ToString() + ":" + seconds;
+                timerLabel.text = minutes + ":" + seconds;
             }
         }
+    }
+
+    private void AddTimer()
+    {
+        timerLabel.style.display = DisplayStyle.Flex;
+        isTimerRunning = true;
+        timeRemaining = timeLimit;
+    }
+
+    private void StopTimer()
+    {
+        isTimerRunning = false;
+        timerLabel.style.opacity = .07f;
     }
 
     private void OnTryAgainBtnClicked()
@@ -76,22 +81,7 @@ public class TimerManager : MonoBehaviour
         timeRemaining = timeLimit;
         isTimerRunning = true;
         failTimerContainer.style.display = DisplayStyle.None;
-        popupBG.SetActive(false);
-        canvas.enabled = true;
-        timerLabel.style.display = DisplayStyle.Flex;
-    }
-
-    private void AddTimer()
-    {
-        timerLabel.style.display = DisplayStyle.Flex;
-
-        isTimerRunning = true;
-        timeRemaining = timeLimit;
-    }
-
-    public void StopTimer()
-    {
-        isTimerRunning = false;
-        timerLabel.style.display = DisplayStyle.None;
+        PopupManager.SwitchPopup();
+        timerLabel.style.opacity = 1f;
     }
 }

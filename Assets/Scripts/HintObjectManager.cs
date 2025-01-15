@@ -14,15 +14,9 @@ public class HintObjectManager : MonoBehaviour
     private Button btnFinishTest;
     private Button btnHideIntro;
     private Label successMsg;
-    private Label scoreLabel;
-    private GameObject popupBG;
-    private Canvas canvas;
 
     private void Start()
-    {
-        popupBG = GameObject.Find("PopupBG");
-        canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
-        
+    {   
         hintObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("HintObject"));
 
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
@@ -32,7 +26,6 @@ public class HintObjectManager : MonoBehaviour
         slidesContainer = parentPopUp.Q<VisualElement>("SlidesExplanation");
         popUpsExplanation = slidesContainer.Query<Label>().ToList();
         successMsg = root.Q<Label>("successMsg");
-        scoreLabel = root.Query<Label>("scoreLabel");
         btnFinishTest = root.Q<Button>("btnFinishTest");
         btnHideIntro = root.Q<Button>("btnHideIntro");
         
@@ -49,8 +42,13 @@ public class HintObjectManager : MonoBehaviour
             if(hintObjects[i].name == currentHintObject.name)
             {   
                 ScoreManager.AddScore(5);
+                
                 hintObjects.Remove(currentHintObject);
-                Destroy(currentHintObject);
+
+                BoxCollider2D currentHOboxCollider = currentHintObject.GetComponent<BoxCollider2D>();
+                currentHOboxCollider.enabled = false;
+                SpriteRenderer currentHOspriteRenderer = currentHintObject.GetComponent<SpriteRenderer>();
+                currentHOspriteRenderer.enabled = true;
                 
                 for (int b = popUpsExplanation.Count - 1; b>=0; b--)
                 {
@@ -87,14 +85,9 @@ public class HintObjectManager : MonoBehaviour
         // Display the parent container for the explanation pop-up.
         parentPopUp.style.display = DisplayStyle.Flex;
 
-        // Disable the finish test button to prevent multiple clicks.
-        btnFinishTest.SetEnabled(false);
+        PopupManager.DisableButtons(btnFinishTest);
 
-        // Set the button's opacity to indicate it is disabled.
-        btnFinishTest.style.opacity = 0.07f;
-        ScoreManager.scoreLabel.style.opacity = 0.07f;
-
-        PopupManager.OnClickSwitchPopup();
+        PopupManager.SwitchPopup();
 
         // Create a SlideManager to manage slides inside explanation pop-up
         SlideManager.CreateSlideManager("SlidesExplanation", "ExplanationBtnsContainer");
@@ -102,7 +95,6 @@ public class HintObjectManager : MonoBehaviour
 
     private void EnableBtns()
     {
-        btnFinishTest.SetEnabled(true);
-        btnFinishTest.style.opacity = 1f;
+        PopupManager.EnableButtons(btnFinishTest); 
     }
 }
