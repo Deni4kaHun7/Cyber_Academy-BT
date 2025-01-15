@@ -6,15 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class SlideManager : MonoBehaviour
 {
-    [SerializeField] private string slideContainerName;
-    [SerializeField] private string btnsContainerName;
-    //[SerializeField] private string slideParentName;
+    public string slideContainerName;
+    public string btnsContainerName;
     private int currentSlideIndex = 0;
     private Button btnNextSlide;
     private Button btnPrevSlide;
-    private Button btnFinishTest;
-    private Button btnIsPhishing;
-    private Button btnNotPhishing;
     private Label[] slidesArray;
     private VisualElement nextSlide;
     private VisualElement prevSlide;
@@ -30,26 +26,17 @@ public class SlideManager : MonoBehaviour
         slideParentContainer = root.Q<VisualElement>(slideContainerName);
         slidesArray = slideParentContainer.Query<Label>().ToList().ToArray();
 
+        if(slidesArray.Length < 2)
+        {
+            isUpdateEnabled = false;
+        }
+
         btnsContainer = root.Q<VisualElement>(btnsContainerName);
         btnNextSlide = btnsContainer.Query<Button>("btnNextSlide");
         btnNextSlide.clicked += OnClickNextSlide;
         
         btnPrevSlide = btnsContainer.Q<Button>("btnPrevSlide");
         btnPrevSlide.clicked += OnClickPrevSlide;
-
-        btnFinishTest = root.Q<Button>("btnFinishTest");
-        if(btnFinishTest == null)
-        {
-            btnIsPhishing = root.Q<Button>("btnIsPhishing");
-            btnNotPhishing = root.Q<Button>("btnNotPhishing");
-            btnIsPhishing.clicked += UpdateSlidesArray;
-            btnNotPhishing.clicked += UpdateSlidesArray;
-        }
-        else 
-        {
-            btnFinishTest.clicked += UpdateSlidesArray;
-        }
-        //btnFinishTest.clicked += OnClickFinishTest;
     }
 
     private void Update()
@@ -61,23 +48,23 @@ public class SlideManager : MonoBehaviour
 
         if(currentSlideIndex != 0)
         {
-            btnPrevSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 1f);
+            btnPrevSlide.style.opacity = 1f;
             btnPrevSlide.SetEnabled(true);
         }
         else if (currentSlideIndex == 0)
         {
-            btnPrevSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.04f);
+            btnPrevSlide.style.opacity = .07f;
             btnPrevSlide.SetEnabled(false);
         }
 
         if (currentSlideIndex == slidesArray.Length - 1) 
         {
-            btnNextSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.04f);
+            btnNextSlide.style.opacity = .07f;
             btnNextSlide.SetEnabled(false);
         }
         else 
         {
-            btnNextSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 1f);
+            btnNextSlide.style.opacity = 1f;
             btnNextSlide.SetEnabled(true);
         }
     }
@@ -92,6 +79,7 @@ public class SlideManager : MonoBehaviour
         slidesArray[currentSlideIndex].style.display = DisplayStyle.None;
         currentSlideIndex ++;
         ShowSlide(currentSlideIndex);
+      
     }
 
     private void OnClickPrevSlide()
@@ -101,20 +89,11 @@ public class SlideManager : MonoBehaviour
         ShowSlide(currentSlideIndex);
     }
 
-    private void UpdateSlidesArray()
+    public static void CreateSlideManager(string slideName, string btnContainer)
     {
-        var uiDocument = GameObject.FindObjectOfType<UIDocument>();
-        var root = uiDocument.rootVisualElement;
-
-        slidesArray = slideParentContainer.Query<Label>().ToList().ToArray();
-
-        if (slidesArray.Length < 2) 
-        {
-            btnNextSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.04f);
-            btnNextSlide.SetEnabled(false);
-            btnPrevSlide.style.unityBackgroundImageTintColor = new Color(1f ,1f ,1f, 0.04f);
-            btnPrevSlide.SetEnabled(false);
-            isUpdateEnabled = false;
-        }
-    }
+        GameObject slidesIntroManager = new GameObject("SlidesManager");
+        SlideManager slideManagerScript = slidesIntroManager.AddComponent<SlideManager>();
+        slideManagerScript.slideContainerName = slideName;
+        slideManagerScript.btnsContainerName = btnContainer;
+    } 
 }
