@@ -11,13 +11,18 @@ public class HintObjectManager : MonoBehaviour
     private static List<Label> popUpsExplanation;
     private static VisualElement parentPopUp;
     private static VisualElement slidesContainer;
+    private static Label suspiciousElementClicked;
+    private Label suspiciousElementsTotal;
     private Button btnFinishTest;
     private Button btnHideIntro;
     private Label successMsg;
+    private static int suspiciousElementsCounter;
 
     private void Start()
     {   
         hintObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("HintObject"));
+
+        suspiciousElementsCounter = 0;
 
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement; 
@@ -28,9 +33,13 @@ public class HintObjectManager : MonoBehaviour
         successMsg = root.Q<Label>("successMsg");
         btnFinishTest = root.Q<Button>("btnFinishTest");
         btnHideIntro = root.Q<Button>("btnHideIntro");
+        suspiciousElementClicked = root.Q<Label>("elementsClicked");
+        suspiciousElementsTotal = root.Q<Label>("elementsTotal");
         
         btnFinishTest.clicked += OnClickFinishTest;
         btnHideIntro.clicked += EnableBtns;
+
+        suspiciousElementsTotal.text = "/" + hintObjects.Count.ToString();
 
         SlideManager.CreateSlideManager("SlidesIntro", "IntroBtnsContainer");
     }
@@ -49,6 +58,9 @@ public class HintObjectManager : MonoBehaviour
                 currentHOboxCollider.enabled = false;
                 SpriteRenderer currentHOspriteRenderer = currentHintObject.GetComponent<SpriteRenderer>();
                 currentHOspriteRenderer.enabled = true;
+
+                suspiciousElementsCounter ++;
+                suspiciousElementClicked.text = suspiciousElementsCounter.ToString();
                 
                 for (int b = popUpsExplanation.Count - 1; b>=0; b--)
                 {
