@@ -35,6 +35,7 @@ public class HintObjectManager : MonoBehaviour
         btnHideIntro = root.Q<Button>("btnHideIntro");
         suspiciousElementClicked = root.Q<Label>("elementsClicked");
         suspiciousElementsTotal = root.Q<Label>("elementsTotal");
+
         
         btnFinishTest.clicked += OnClickFinishTest;
         btnHideIntro.clicked += EnableBtns;

@@ -31,4 +31,7 @@
         </ui:VisualElement>
         <ui:Label tabindex="-1" text="Profesor Zenith" parse-escape-sequences="true" display-tooltip-when-elided="true" name="nameText" style="color: rgb(219, 106, 0); position: absolute; top: 583px; right: auto; left: 420px; font-size: 30px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/TechnoCharmDemoVersionRegular-ALaZm%20SDF.asset?fileID=11400000&amp;guid=7919249cbe97443598531dbbe1e5c973&amp;type=2#TechnoCharmDemoVersionRegular-ALaZm SDF&quot;); height: 46px; width: 265px;" />
     </ui:VisualElement>
+    <ui:VisualElement name="RecapGoal" style="flex-grow: 1; position: absolute; height: 639px; width: 457px; top: 395px; left: 1444px; opacity: 0.07;">
+        <ui:Label tabindex="-1" text="* Decide if you see a phishing or not&#10;&#10;* You will lose your points for wrong answer&#10;&#10;* Use all your knowledge you got in previous lessons " parse-escape-sequences="true" display-tooltip-when-elided="true" style="color: rgb(219, 106, 0); -unity-font-definition: url(&quot;project://database/Assets/Fonts/VeniteAdoremus-rgRBA%20SDF.asset?fileID=11400000&amp;guid=664089124c2fa405ba1ffcd30ebe75d6&amp;type=2#VeniteAdoremus-rgRBA SDF&quot;); font-size: 34px; height: 647px; width: 457px; flex-wrap: wrap; white-space: normal;" />
+    </ui:VisualElement>
 </ui:UXML>
