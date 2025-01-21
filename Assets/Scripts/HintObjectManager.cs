@@ -11,31 +11,34 @@ public class HintObjectManager : MonoBehaviour
     private static List<Label> popUpsExplanation;
     private static VisualElement parentPopUp;
     private static VisualElement slidesContainer;
+    private static VisualElement suspiciousElementsCounter;
     private static Label suspiciousElementClicked;
     private Label suspiciousElementsTotal;
     private Button btnFinishTest;
     private Button btnHideIntro;
     private Label successMsg;
-    private static int suspiciousElementsCounter;
+    private static int suspiciousElementsAmount;
 
     private void Start()
     {   
         hintObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("HintObject"));
 
-        suspiciousElementsCounter = 0;
+        suspiciousElementsAmount = 0;
 
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement; 
 
         parentPopUp = root.Q<VisualElement>("PopUpExplanationContainer");
         slidesContainer = parentPopUp.Q<VisualElement>("SlidesExplanation");
+        suspiciousElementsCounter = root.Q<VisualElement>("SuspiciousElementsCounter");
+
         popUpsExplanation = slidesContainer.Query<Label>().ToList();
         successMsg = root.Q<Label>("successMsg");
-        btnFinishTest = root.Q<Button>("btnFinishTest");
-        btnHideIntro = root.Q<Button>("btnHideIntro");
         suspiciousElementClicked = root.Q<Label>("elementsClicked");
         suspiciousElementsTotal = root.Q<Label>("elementsTotal");
 
+        btnFinishTest = root.Q<Button>("btnFinishTest");
+        btnHideIntro = root.Q<Button>("btnHideIntro");
         
         btnFinishTest.clicked += OnClickFinishTest;
         btnHideIntro.clicked += EnableBtns;
@@ -60,7 +63,7 @@ public class HintObjectManager : MonoBehaviour
                 SpriteRenderer currentHOspriteRenderer = currentHintObject.GetComponent<SpriteRenderer>();
                 currentHOspriteRenderer.enabled = true;
 
-                suspiciousElementsCounter ++;
+                suspiciousElementsAmount ++;
                 suspiciousElementClicked.text = suspiciousElementsCounter.ToString();
                 
                 for (int b = popUpsExplanation.Count - 1; b>=0; b--)
@@ -100,6 +103,8 @@ public class HintObjectManager : MonoBehaviour
 
         PopupManager.DisableButtons(btnFinishTest);
 
+        suspiciousElementsCounter.style.opacity= .07f;
+
         PopupManager.SwitchPopup();
 
         // Create a SlideManager to manage slides inside explanation pop-up
@@ -109,5 +114,6 @@ public class HintObjectManager : MonoBehaviour
     private void EnableBtns()
     {
         PopupManager.EnableButtons(btnFinishTest); 
+        suspiciousElementsCounter.style.opacity = 1f;
     }
 }

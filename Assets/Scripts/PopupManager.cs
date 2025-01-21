@@ -10,9 +10,6 @@ public class PopupManager : MonoBehaviour
 
     // Visual element for the introduction pop-up
     private static VisualElement introPopup;
-    
-    //Visual element for suspicous element counter
-    private static VisualElement suspiciousElementsCounter;
 
     //Visual element for the recap of the lesson's main goal
     private static VisualElement recapGoal;
@@ -39,7 +36,6 @@ public class PopupManager : MonoBehaviour
         // Get references to UI Toolkit elements by their names
         btnHideIntro = root.Q<Button>("btnHideIntro"); 
         introPopup = root.Q<VisualElement>("IntroToLevelContainer");
-        suspiciousElementsCounter = root.Q<VisualElement>("SuspiciousElementsCounter");
         recapGoal = root.Q<VisualElement>("RecapGoal");
 
         // Attach the OnClickHideIntro method to the Hide Intro button's click event
@@ -73,7 +69,6 @@ public class PopupManager : MonoBehaviour
 
         // Toggle the visual elements opacity between fully visible and partially transparent
         ScoreManager.scoreLabel.style.opacity = 1f;  
-        suspiciousElementsCounter.style.opacity = 1f;
         recapGoal.style.opacity = 1f;
     }
 
@@ -87,7 +82,6 @@ public class PopupManager : MonoBehaviour
 
         // Toggle the score label's opacity between fully visible and partially transparent
         ScoreManager.scoreLabel.style.opacity = .07f;  
-        suspiciousElementsCounter.style.opacity= .07f;
         recapGoal.style.opacity = .07f;
     }
 }

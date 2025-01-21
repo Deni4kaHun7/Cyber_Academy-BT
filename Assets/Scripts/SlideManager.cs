@@ -11,6 +11,7 @@ public class SlideManager : MonoBehaviour
     private int currentSlideIndex = 0;
     private Button btnNextSlide;
     private Button btnPrevSlide;
+    private Button btnHideIntro;
     private Label[] slidesArray;
     private VisualElement nextSlide;
     private VisualElement prevSlide;
@@ -37,6 +38,9 @@ public class SlideManager : MonoBehaviour
         
         btnPrevSlide = btnsContainer.Q<Button>("btnPrevSlide");
         btnPrevSlide.clicked += OnClickPrevSlide;
+
+        btnHideIntro = root.Q<Button>("btnHideIntro");
+        btnHideIntro.SetEnabled(false);
     }
 
     private void Update()
@@ -61,6 +65,9 @@ public class SlideManager : MonoBehaviour
         {
             btnNextSlide.style.opacity = .07f;
             btnNextSlide.SetEnabled(false);
+
+            btnHideIntro.style.opacity = 1f;
+            btnHideIntro.SetEnabled(true);
         }
         else 
         {
