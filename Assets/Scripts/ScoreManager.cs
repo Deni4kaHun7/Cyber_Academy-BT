@@ -5,11 +5,22 @@ using UnityEngine.UIElements;
 
 public class ScoreManager : MonoBehaviour
 {
+    public static ScoreManager Instance { get; private set; } 
     // Static variable to store the player's score, shared across all instances
     public static int score = 0;
 
     // Static reference to the UI label used to display the score
     public static Label scoreLabel;
+
+    private void Awake() {
+        if(Instance != null && Instance != this) {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
     private void Start()
     {

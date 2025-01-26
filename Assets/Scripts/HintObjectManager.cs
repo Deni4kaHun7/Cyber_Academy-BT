@@ -18,9 +18,12 @@ public class HintObjectManager : MonoBehaviour
     private Button btnHideIntro;
     private Label successMsg;
     private static int suspiciousElementsAmount;
+    private AudioSource audioSource;
 
     private void Start()
     {   
+        audioSource = gameObject.GetComponent<AudioSource>();
+
         hintObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("HintObject"));
 
         suspiciousElementsAmount = 0;
@@ -54,7 +57,7 @@ public class HintObjectManager : MonoBehaviour
         {   
             if(hintObjects[i].name == currentHintObject.name)
             {   
-                ScoreManager.AddScore(5);
+                ScoreManager.Instance.AddScore(5);
                 
                 hintObjects.Remove(currentHintObject);
 
@@ -109,6 +112,7 @@ public class HintObjectManager : MonoBehaviour
 
         // Create a SlideManager to manage slides inside explanation pop-up
         SlideManager.CreateSlideManager("SlidesExplanation", "ExplanationBtnsContainer");
+        audioSource.Play();
     }
 
     private void EnableBtns()

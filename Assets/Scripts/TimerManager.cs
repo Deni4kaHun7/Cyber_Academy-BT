@@ -14,9 +14,12 @@ public class TimerManager : MonoBehaviour
     private Button btnNotPhishing;
     private float timeRemaining;
     public static bool isTimerRunning = false;
+    private AudioSource audioSource;
 
     private void Start() 
     {
+        audioSource = gameObject.GetComponent<AudioSource>();
+
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement;
 
@@ -45,7 +48,7 @@ public class TimerManager : MonoBehaviour
             StopTimer();
             failTimerContainer.style.display = DisplayStyle.Flex;
             PopupManager.SwitchPopup();
-
+            audioSource.Play();
         }
         else if(isTimerRunning)
         {

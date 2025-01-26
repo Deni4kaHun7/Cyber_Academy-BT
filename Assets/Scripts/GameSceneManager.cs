@@ -26,6 +26,8 @@ public class GameSceneManager : MonoBehaviour
         {
             btn.clicked += OnClickNextScene;
         }
+
+        ButtonSoundManager.Instance.RegisterButtons(uiDocument);
     }
 
     // Function to load the next scene in the build settings

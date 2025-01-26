@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class GuessTestManager : MonoBehaviour
 {
     [SerializeField] private bool isPhishing;
+    [SerializeField] private AudioClip audioClipFail;
+    [SerializeField] private AudioClip audioClipWin;
     private VisualElement successPopupContainer;
     private VisualElement slidesContainer;
     private Label[] slidesExplanation;
@@ -14,10 +16,12 @@ public class GuessTestManager : MonoBehaviour
     private Button btnNotPhishing;
     private Button btnHideIntro;
     private VisualElement parentPopUp;
-
+    private AudioSource audioSource;
 
     private void Start() 
     {
+        audioSource = gameObject.GetComponent<AudioSource>();
+
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement;
 
@@ -43,7 +47,6 @@ public class GuessTestManager : MonoBehaviour
         if(isPhishing)
         {
            ShowSuccessMsg();
-            
         }else{
             ShowFailureMsg();
         }
@@ -69,20 +72,25 @@ public class GuessTestManager : MonoBehaviour
         PopupManager.SwitchPopup();
 
         SlideManager.CreateSlideManager("SlidesExplanation", "ExplanationBtnsContainer");
+        audioSource.Play();
     }
 
     private void ShowSuccessMsg()
     {
-        ScoreManager.AddScore(10);
+        ScoreManager.Instance.AddScore(10);
         Label firstSlide = slidesExplanation[0];
         firstSlide.text = "Good Job! Let's take a closer look at this example.\n" + firstSlide.text;
+        audioSource.clip = audioClipWin;
+        audioSource.Play();
     }
 
     private void ShowFailureMsg()
     {
-        ScoreManager.AddScore(-10);
+        ScoreManager.Instance.AddScore(-10);
         Label firstSlide = slidesExplanation[0];
         firstSlide.text = "Wrong! Let's take a closer look at what you missed.\n" + firstSlide.text;
+        audioSource.clip = audioClipFail;
+        audioSource.Play();
     }
 
     private void EnableBtns()
