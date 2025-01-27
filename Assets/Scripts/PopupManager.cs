@@ -17,6 +17,7 @@ public class PopupManager : MonoBehaviour
     // Button to hide the introduction pop-up
     private static Button btnHideIntro;
 
+
     // Canvas for the main test UI
     private static Canvas canvas;
 
@@ -68,7 +69,7 @@ public class PopupManager : MonoBehaviour
         }
 
         // Toggle the visual elements opacity between fully visible and partially transparent
-        ScoreManager.scoreLabel.style.opacity = 1f;  
+       // ScoreManager.scoreLabel.style.opacity = 1f;  
         recapGoal.style.opacity = 1f;
     }
 
@@ -81,7 +82,7 @@ public class PopupManager : MonoBehaviour
         }
 
         // Toggle the score label's opacity between fully visible and partially transparent
-        ScoreManager.scoreLabel.style.opacity = .07f;  
+        //ScoreManager.scoreLabel.style.opacity = .07f;  
         recapGoal.style.opacity = .07f;
     }
 }

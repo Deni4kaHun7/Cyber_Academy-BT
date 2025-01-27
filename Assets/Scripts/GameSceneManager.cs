@@ -27,6 +27,8 @@ public class GameSceneManager : MonoBehaviour
             btn.clicked += OnClickNextScene;
         }
 
+        ScoreManager.Instance.RegisterLabel(uiDocument);
+        
         ButtonSoundManager.Instance.RegisterButtons(uiDocument);
     }
 

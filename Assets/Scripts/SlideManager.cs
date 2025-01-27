@@ -86,7 +86,6 @@ public class SlideManager : MonoBehaviour
         slidesArray[currentSlideIndex].style.display = DisplayStyle.None;
         currentSlideIndex ++;
         ShowSlide(currentSlideIndex);
-      
     }
 
     private void OnClickPrevSlide()
