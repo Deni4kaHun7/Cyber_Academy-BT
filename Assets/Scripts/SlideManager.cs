@@ -26,11 +26,14 @@ public class SlideManager : MonoBehaviour
 
         slideParentContainer = root.Q<VisualElement>(slideContainerName);
         slidesArray = slideParentContainer.Query<Label>().ToList().ToArray();
+        Debug.Log("" + slidesArray.Length);
 
         if(slidesArray.Length < 2)
         {
             isUpdateEnabled = false;
         }
+
+        Debug.Log(isUpdateEnabled);
 
         btnsContainer = root.Q<VisualElement>(btnsContainerName);
         btnNextSlide = btnsContainer.Query<Button>("btnNextSlide");
@@ -45,10 +48,10 @@ public class SlideManager : MonoBehaviour
 
     private void Update()
     {
-        if(!isUpdateEnabled)
+        /* if(!isUpdateEnabled)
         {
             return;
-        }
+        } */
 
         if(currentSlideIndex != 0)
         {

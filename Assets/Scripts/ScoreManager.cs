@@ -41,6 +41,5 @@ public class ScoreManager : MonoBehaviour
 
         // Set the initial text of the score label
         scoreLabel.text = $"Score:{score}";
-        Debug.Log(scoreLabel);
     }
 }
