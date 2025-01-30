@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 
 public class PopupManager : MonoBehaviour
 {
+    [SerializeField] private string[] btnsToEnable;
     // Background for the pop-up
     private static GameObject popupBG;
 
@@ -20,6 +21,8 @@ public class PopupManager : MonoBehaviour
     // Canvas for the main test UI
     private static Canvas canvas;
     private static VisualElement parentPopUp;
+    private UIDocument uiDocument;
+    private VisualElement root;
 
     // Start is called before the first frame update
     private void Start()
@@ -31,8 +34,8 @@ public class PopupManager : MonoBehaviour
         canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
 
         // Get the UIDocument component and root VisualElement for UI Toolkit elements
-        var uiDocument = GameObject.FindObjectOfType<UIDocument>();
-        var root = uiDocument.rootVisualElement;      
+        uiDocument = GameObject.FindObjectOfType<UIDocument>();
+        root = uiDocument.rootVisualElement;      
 
         // Get references to UI Toolkit elements by their names
         btnHideIntro = root.Q<Button>("btnHideIntro"); 
@@ -59,12 +62,14 @@ public class PopupManager : MonoBehaviour
     {
         // Toggle the display state of the introduction pop-up
         introPopup.style.display = DisplayStyle.None; 
+        EnableButtons(btnsToEnable);
     }
 
-    public static void EnableButtons(params Button[] buttons)
+    private void EnableButtons(params string[] buttonsName)
     {
-        foreach (var button in buttons)
+        foreach (var btnName in buttonsName)
         {
+            var button = root.Q<Button>(btnName);
             button.SetEnabled(true);
             button.style.opacity = 1f;
         }

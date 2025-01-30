@@ -13,12 +13,15 @@ public class GuessTestManager : MonoBehaviour
     private Label[] slidesExplanation;
     private Button btnIsPhishing;
     private Button btnNotPhishing;
-    private Button btnHideIntro;
     private AudioSource audioSource;
+    private string successMsg;
+    private string failMsg;
 
     private void Start() 
     {
         audioSource = gameObject.GetComponent<AudioSource>();
+        successMsg = "Good Job! Let's take a closer look at this example.\n";
+        failMsg = "Wrong! Let's take a closer look at what you missed.\n";
 
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement;
@@ -28,12 +31,9 @@ public class GuessTestManager : MonoBehaviour
         
         slidesContainer = root.Q<VisualElement>("SlidesExplanation");
         slidesExplanation = slidesContainer.Query<Label>().ToList().ToArray();
-        btnHideIntro = root.Q<Button>("btnHideIntro");
 
         btnIsPhishing.clicked += OnClickIsPhishing;
         btnNotPhishing.clicked += OnClickIsNotPhishing; 
-
-        btnHideIntro.clicked += EnableBtns;
 
         SlideManager.CreateSlideManager("SlidesIntro", "IntroBtnsContainer");
     }
@@ -44,9 +44,11 @@ public class GuessTestManager : MonoBehaviour
 
         if(isPhishing)
         {
-           ShowSuccessMsg();
-        }else{
-            ShowFailureMsg();
+           ShowMessage(10, successMsg, audioClipWin);
+        }
+        else
+        {
+            ShowMessage(-10, failMsg, audioClipFail);
         }
     }
 
@@ -56,32 +58,20 @@ public class GuessTestManager : MonoBehaviour
 
         if(isPhishing)
         {
-            ShowFailureMsg();
-        }else{
-            ShowSuccessMsg();
+            ShowMessage(-10, successMsg, audioClipFail);
+        }
+        else
+        {
+            ShowMessage(10, failMsg, audioClipWin);
         }
     }
 
-    private void ShowSuccessMsg()
+    private void ShowMessage(int points, string msg, AudioClip audioClip)
     {
-        ScoreManager.Instance.AddScore(10);
+        ScoreManager.Instance.AddScore(points);
         Label firstSlide = slidesExplanation[0];
-        firstSlide.text = "Good Job! Let's take a closer look at this example.\n" + firstSlide.text;
-        audioSource.clip = audioClipWin;
+        firstSlide.text = msg + firstSlide.text;
+        audioSource.clip = audioClip;
         audioSource.Play();
-    }
-
-    private void ShowFailureMsg()
-    {
-        ScoreManager.Instance.AddScore(-10);
-        Label firstSlide = slidesExplanation[0];
-        firstSlide.text = "Wrong! Let's take a closer look at what you missed.\n" + firstSlide.text;
-        audioSource.clip = audioClipFail;
-        audioSource.Play();
-    }
-
-    private void EnableBtns()
-    {
-        PopupManager.EnableButtons(btnIsPhishing, btnNotPhishing);
     }
 }

@@ -15,7 +15,6 @@ public class HintObjectManager : MonoBehaviour
     private static Label suspiciousElementClicked;
     private Label suspiciousElementsTotal;
     private Button btnFinishTest;
-    private Button btnHideIntro;
     private Label successMsg;
     private static int suspiciousElementsAmount;
     private AudioSource audioSource;
@@ -41,10 +40,8 @@ public class HintObjectManager : MonoBehaviour
         suspiciousElementsTotal = root.Q<Label>("elementsTotal");
 
         btnFinishTest = root.Q<Button>("btnFinishTest");
-        btnHideIntro = root.Q<Button>("btnHideIntro");
         
         btnFinishTest.clicked += OnClickFinishTest;
-        btnHideIntro.clicked += EnableBtns;
 
         suspiciousElementsTotal.text = "/" + hintObjects.Count.ToString();
 
@@ -109,7 +106,7 @@ public class HintObjectManager : MonoBehaviour
 
     private void EnableBtns()
     {
-        PopupManager.EnableButtons(btnFinishTest); 
+        //PopupManager.EnableButtons(btnFinishTest); 
         suspiciousElementsCounter.style.opacity = 1f;
     }
 }
