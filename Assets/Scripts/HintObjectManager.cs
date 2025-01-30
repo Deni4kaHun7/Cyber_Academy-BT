@@ -101,17 +101,9 @@ public class HintObjectManager : MonoBehaviour
             firstSlide.style.display = DisplayStyle.Flex;
         }
 
-        // Display the parent container for the explanation pop-up.
-        parentPopUp.style.display = DisplayStyle.Flex;
-
-        PopupManager.DisableButtons(btnFinishTest);
-
         suspiciousElementsCounter.style.opacity= .07f;
 
-        PopupManager.SwitchPopup();
-
-        // Create a SlideManager to manage slides inside explanation pop-up
-        SlideManager.CreateSlideManager("SlidesExplanation", "ExplanationBtnsContainer");
+        PopupManager.EnableExplanationPopup(btnFinishTest);
         audioSource.Play();
     }
 

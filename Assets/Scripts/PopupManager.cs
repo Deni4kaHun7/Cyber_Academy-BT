@@ -17,9 +17,9 @@ public class PopupManager : MonoBehaviour
     // Button to hide the introduction pop-up
     private static Button btnHideIntro;
 
-
     // Canvas for the main test UI
     private static Canvas canvas;
+    private static VisualElement parentPopUp;
 
     // Start is called before the first frame update
     private void Start()
@@ -38,6 +38,7 @@ public class PopupManager : MonoBehaviour
         btnHideIntro = root.Q<Button>("btnHideIntro"); 
         introPopup = root.Q<VisualElement>("IntroToLevelContainer");
         recapGoal = root.Q<VisualElement>("RecapGoal");
+        parentPopUp = root.Q<VisualElement>("PopUpExplanationContainer");
 
         // Attach the OnClickHideIntro method to the Hide Intro button's click event
         btnHideIntro.clicked += SwitchPopup;
@@ -73,16 +74,18 @@ public class PopupManager : MonoBehaviour
         recapGoal.style.opacity = 1f;
     }
 
-    public static void DisableButtons(params Button[] buttons)
-    {
+    public static void EnableExplanationPopup(params Button[] buttons) {
         foreach (var button in buttons)
         {
             button.SetEnabled(false);
             button.style.opacity = 0.07f;
         }
 
-        // Toggle the score label's opacity between fully visible and partially transparent
-        //ScoreManager.scoreLabel.style.opacity = .07f;  
         recapGoal.style.opacity = .07f;
+
+        SwitchPopup();
+        SlideManager.CreateSlideManager("SlidesExplanation", "ExplanationBtnsContainer");
+        
+        parentPopUp.style.display = DisplayStyle.Flex;
     }
 }

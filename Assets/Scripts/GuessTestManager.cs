@@ -9,13 +9,11 @@ public class GuessTestManager : MonoBehaviour
     [SerializeField] private bool isPhishing;
     [SerializeField] private AudioClip audioClipFail;
     [SerializeField] private AudioClip audioClipWin;
-    private VisualElement successPopupContainer;
     private VisualElement slidesContainer;
     private Label[] slidesExplanation;
     private Button btnIsPhishing;
     private Button btnNotPhishing;
     private Button btnHideIntro;
-    private VisualElement parentPopUp;
     private AudioSource audioSource;
 
     private void Start() 
@@ -27,7 +25,7 @@ public class GuessTestManager : MonoBehaviour
 
         btnIsPhishing = root.Q<Button>("btnIsPhishing");
         btnNotPhishing = root.Q<Button>("btnNotPhishing");
-        parentPopUp = root.Q<VisualElement>("PopUpExplanationContainer");
+        
         slidesContainer = root.Q<VisualElement>("SlidesExplanation");
         slidesExplanation = slidesContainer.Query<Label>().ToList().ToArray();
         btnHideIntro = root.Q<Button>("btnHideIntro");
@@ -42,7 +40,7 @@ public class GuessTestManager : MonoBehaviour
 
     private void OnClickIsPhishing()
     {
-        DisableBg();
+        PopupManager.EnableExplanationPopup(btnIsPhishing, btnNotPhishing);
 
         if(isPhishing)
         {
@@ -54,7 +52,7 @@ public class GuessTestManager : MonoBehaviour
 
     private void OnClickIsNotPhishing()
     {   
-        DisableBg();
+        PopupManager.EnableExplanationPopup(btnIsPhishing, btnNotPhishing);
 
         if(isPhishing)
         {
@@ -62,17 +60,6 @@ public class GuessTestManager : MonoBehaviour
         }else{
             ShowSuccessMsg();
         }
-    }
-
-    private void DisableBg()
-    {
-        parentPopUp.style.display = DisplayStyle.Flex;
-
-        PopupManager.DisableButtons(btnIsPhishing, btnNotPhishing);
-        PopupManager.SwitchPopup();
-
-        SlideManager.CreateSlideManager("SlidesExplanation", "ExplanationBtnsContainer");
-        audioSource.Play();
     }
 
     private void ShowSuccessMsg()
