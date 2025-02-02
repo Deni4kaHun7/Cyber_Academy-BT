@@ -9,7 +9,7 @@ public class GuessTestManager : MonoBehaviour
     [SerializeField] private bool isPhishing;
     [SerializeField] private AudioClip audioClipFail;
     [SerializeField] private AudioClip audioClipWin;
-    private VisualElement slidesContainer;
+    private VisualElement slidesExplanationContainer;
     private Label[] slidesExplanation;
     private Button btnIsPhishing;
     private Button btnNotPhishing;
@@ -29,8 +29,8 @@ public class GuessTestManager : MonoBehaviour
         btnIsPhishing = root.Q<Button>("btnIsPhishing");
         btnNotPhishing = root.Q<Button>("btnNotPhishing");
         
-        slidesContainer = root.Q<VisualElement>("SlidesExplanation");
-        slidesExplanation = slidesContainer.Query<Label>().ToList().ToArray();
+        slidesExplanationContainer = root.Q<VisualElement>("SlidesExplanation");
+        slidesExplanation = slidesExplanationContainer.Query<Label>().ToList().ToArray();
 
         btnIsPhishing.clicked += OnClickIsPhishing;
         btnNotPhishing.clicked += OnClickIsNotPhishing; 

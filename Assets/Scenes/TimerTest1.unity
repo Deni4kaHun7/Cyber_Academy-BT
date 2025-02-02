@@ -2294,6 +2294,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd1855f289a3465dbc1b58637eeae7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  btnsToEnable:
+  - btnIsPhishing
+  - btnNotPhishing
 --- !u!4 &1510354507
 Transform:
   m_ObjectHideFlags: 0
@@ -2934,6 +2937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a26341f48dd491ebbe8d6c8d0a39b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score: 0
 --- !u!4 &1987212048
 Transform:
   m_ObjectHideFlags: 0

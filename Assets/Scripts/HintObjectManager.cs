@@ -7,16 +7,15 @@ using UnityEngine.SceneManagement;
 
 public class HintObjectManager : MonoBehaviour
 {
-    private static List<GameObject> hintObjects;
-    private static List<Label> popUpsExplanation;
-    private static VisualElement parentPopUp;
-    private static VisualElement slidesContainer;
-    private static VisualElement suspiciousElementsCounter;
-    private static Label suspiciousElementClicked;
+    private List<GameObject> hintObjects;
+    private List<Label> popUpsExplanation;
+    private VisualElement slidesExplanationContainer;
+    private VisualElement suspiciousElementsCounter;
+    private Label suspiciousElementClicked;
     private Label suspiciousElementsTotal;
     private Button btnFinishTest;
     private Label successMsg;
-    private static int suspiciousElementsAmount;
+    private int suspiciousElementsAmount;
     private AudioSource audioSource;
 
     private void Start()
@@ -30,17 +29,16 @@ public class HintObjectManager : MonoBehaviour
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement; 
 
-        parentPopUp = root.Q<VisualElement>("PopUpExplanationContainer");
-        slidesContainer = parentPopUp.Q<VisualElement>("SlidesExplanation");
-        suspiciousElementsCounter = root.Q<VisualElement>("SuspiciousElementsCounter");
+        slidesExplanationContainer = root.Q<VisualElement>("SlidesExplanation");
+        popUpsExplanation = slidesExplanationContainer.Query<Label>().ToList();
 
-        popUpsExplanation = slidesContainer.Query<Label>().ToList();
         successMsg = root.Q<Label>("successMsg");
+
+        suspiciousElementsCounter = root.Q<VisualElement>("SuspiciousElementsCounter");
         suspiciousElementClicked = root.Q<Label>("elementsClicked");
         suspiciousElementsTotal = root.Q<Label>("elementsTotal");
 
         btnFinishTest = root.Q<Button>("btnFinishTest");
-        
         btnFinishTest.clicked += OnClickFinishTest;
 
         suspiciousElementsTotal.text = "/" + hintObjects.Count.ToString();
@@ -48,7 +46,7 @@ public class HintObjectManager : MonoBehaviour
         SlideManager.CreateSlideManager("SlidesIntro", "IntroBtnsContainer");
     }
 
-    public static void OnClickHintObject(GameObject currentHintObject)
+    public void OnClickHintObject(GameObject currentHintObject)
     {
         for (int i = hintObjects.Count - 1; i >= 0; i--)
         {   
@@ -64,7 +62,7 @@ public class HintObjectManager : MonoBehaviour
                 currentHOspriteRenderer.enabled = true;
 
                 suspiciousElementsAmount ++;
-                suspiciousElementClicked.text = suspiciousElementsCounter.ToString();
+                suspiciousElementClicked.text = suspiciousElementsAmount.ToString();
                 
                 for (int b = popUpsExplanation.Count - 1; b>=0; b--)
                 {
