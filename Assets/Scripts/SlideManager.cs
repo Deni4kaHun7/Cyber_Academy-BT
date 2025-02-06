@@ -26,7 +26,7 @@ public class SlideManager : MonoBehaviour
 
         slideParentContainer = root.Q<VisualElement>(slideContainerName);
         slidesArray = slideParentContainer.Query<Label>().ToList().ToArray();
-        Debug.Log("" + slidesArray.Length);
+        Debug.Log("length" + slidesArray.Length);
 
         if(slidesArray.Length < 2)
         {
@@ -38,9 +38,11 @@ public class SlideManager : MonoBehaviour
         btnsContainer = root.Q<VisualElement>(btnsContainerName);
         btnNextSlide = btnsContainer.Query<Button>("btnNextSlide");
         btnNextSlide.clicked += OnClickNextSlide;
+        btnNextSlide.SetEnabled(false);
         
         btnPrevSlide = btnsContainer.Q<Button>("btnPrevSlide");
         btnPrevSlide.clicked += OnClickPrevSlide;
+        btnPrevSlide.SetEnabled(false);
 
         btnHideIntro = root.Q<Button>("btnHideIntro");
         btnHideIntro.SetEnabled(false);
@@ -48,10 +50,10 @@ public class SlideManager : MonoBehaviour
 
     private void Update()
     {
-        /* if(!isUpdateEnabled)
+        if(!isUpdateEnabled)
         {
             return;
-        } */
+        } 
 
         if(currentSlideIndex != 0)
         {

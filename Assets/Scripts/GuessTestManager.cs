@@ -39,9 +39,7 @@ public class GuessTestManager : MonoBehaviour
     }
 
     private void OnClickIsPhishing()
-    {
-        PopupManager.EnableExplanationPopup(btnIsPhishing, btnNotPhishing);
-
+    {  
         if(isPhishing)
         {
            ShowMessage(10, successMsg, audioClipWin);
@@ -54,7 +52,7 @@ public class GuessTestManager : MonoBehaviour
 
     private void OnClickIsNotPhishing()
     {   
-        PopupManager.EnableExplanationPopup(btnIsPhishing, btnNotPhishing);
+        //PopupManager.EnableExplanationPopup(btnIsPhishing, btnNotPhishing);
 
         if(isPhishing)
         {
@@ -69,8 +67,13 @@ public class GuessTestManager : MonoBehaviour
     private void ShowMessage(int points, string msg, AudioClip audioClip)
     {
         ScoreManager.Instance.AddScore(points);
+
         Label firstSlide = slidesExplanation[0];
         firstSlide.text = msg + firstSlide.text;
+
+        var PopUpManager = FindObjectOfType<PopupManager>();
+        PopUpManager.SwitchPopup("PopUpExplanationContainer", false, 0.07f, true);
+
         audioSource.clip = audioClip;
         audioSource.Play();
     }

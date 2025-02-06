@@ -1923,7 +1923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd03e5b44497f49a4a53b399080612e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeLimit: 30
+  timeLimit: 5
 --- !u!4 &1276519847
 Transform:
   m_ObjectHideFlags: 0
@@ -2828,6 +2828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a26341f48dd491ebbe8d6c8d0a39b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score: 0
 --- !u!4 &1987212048
 Transform:
   m_ObjectHideFlags: 0
@@ -2852,26 +2853,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2028830662}
-  - component: {fileID: 2028830661}
+  - component: {fileID: 2028830663}
   m_Layer: 0
-  m_Name: IntroManager
+  m_Name: PopupManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2028830661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2028830660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcd1855f289a3465dbc1b58637eeae7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &2028830662
 Transform:
   m_ObjectHideFlags: 0
@@ -2887,6 +2876,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2028830663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028830660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcd1855f289a3465dbc1b58637eeae7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btnsToEnable:
+  - btnIsPhishing
+  - btnNotPhishing
 --- !u!1 &2030698270
 GameObject:
   m_ObjectHideFlags: 0

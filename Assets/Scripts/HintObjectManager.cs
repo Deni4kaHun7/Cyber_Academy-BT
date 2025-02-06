@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class HintObjectManager : MonoBehaviour
 {
+    private Dictionary<GameObject, Label> dictionary;
     private List<GameObject> hintObjects;
-    private List<Label> popUpsExplanation;
-    private VisualElement slidesExplanationContainer;
     private VisualElement suspiciousElementsCounter;
     private Label suspiciousElementClicked;
     private Label suspiciousElementsTotal;
@@ -29,9 +29,6 @@ public class HintObjectManager : MonoBehaviour
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement; 
 
-        slidesExplanationContainer = root.Q<VisualElement>("SlidesExplanation");
-        popUpsExplanation = slidesExplanationContainer.Query<Label>().ToList();
-
         successMsg = root.Q<Label>("successMsg");
 
         suspiciousElementsCounter = root.Q<VisualElement>("SuspiciousElementsCounter");
@@ -44,42 +41,37 @@ public class HintObjectManager : MonoBehaviour
         suspiciousElementsTotal.text = "/" + hintObjects.Count.ToString();
 
         SlideManager.CreateSlideManager("SlidesIntro", "IntroBtnsContainer");
+
+        dictionary = new Dictionary<GameObject, Label>();
+
+        foreach(var hintObject in hintObjects)
+        {
+            var slide = root.Q<Label>(hintObject.name);
+            dictionary.Add(hintObject, slide);
+        }
     }
 
     public void OnClickHintObject(GameObject currentHintObject)
     {
-        for (int i = hintObjects.Count - 1; i >= 0; i--)
-        {   
-            if(hintObjects[i].name == currentHintObject.name)
-            {   
-                ScoreManager.Instance.AddScore(5);
-                
-                hintObjects.Remove(currentHintObject);
+        var label = dictionary[currentHintObject];
+        label.RemoveFromHierarchy();
+        dictionary.Remove(currentHintObject);
 
-                BoxCollider2D currentHOboxCollider = currentHintObject.GetComponent<BoxCollider2D>();
-                currentHOboxCollider.enabled = false;
-                SpriteRenderer currentHOspriteRenderer = currentHintObject.GetComponent<SpriteRenderer>();
-                currentHOspriteRenderer.enabled = true;
+        ScoreManager.Instance.AddScore(5);
 
-                suspiciousElementsAmount ++;
-                suspiciousElementClicked.text = suspiciousElementsAmount.ToString();
-                
-                for (int b = popUpsExplanation.Count - 1; b>=0; b--)
-                {
-                    if (popUpsExplanation[b].name == currentHintObject.name)
-                    {
-                        popUpsExplanation[b].RemoveFromHierarchy();
-                        popUpsExplanation.Remove(popUpsExplanation[b]);
-                    }
-                }
-            }
-        }
+        BoxCollider2D currentHOboxCollider = currentHintObject.GetComponent<BoxCollider2D>();
+        currentHOboxCollider.enabled = false;
+        SpriteRenderer currentHOspriteRenderer = currentHintObject.GetComponent<SpriteRenderer>();
+        currentHOspriteRenderer.enabled = true;
+
+        suspiciousElementsAmount ++;
+        suspiciousElementClicked.text = suspiciousElementsAmount.ToString();
     }
 
     private void OnClickFinishTest()
     {   
         // Check if there are any remaining explanation slides (missed suspicious elements).
-        if (popUpsExplanation.Count == 0) 
+        if (dictionary.Count == 0) 
         {
             // If no missed elements, display the success message.
             successMsg.style.display = DisplayStyle.Flex;
@@ -87,7 +79,7 @@ public class HintObjectManager : MonoBehaviour
         else 
         {
             // If there are missed elements, get the first slide from the list.
-            Label firstSlide = popUpsExplanation[0];
+            Label firstSlide = dictionary.First().Value;
             
             // Update the first slide's text to include a message indicating what was missed.
             firstSlide.text = "Good Try! Now let's see what you missed.\n" + firstSlide.text;
@@ -96,15 +88,9 @@ public class HintObjectManager : MonoBehaviour
             firstSlide.style.display = DisplayStyle.Flex;
         }
 
-        suspiciousElementsCounter.style.opacity= .07f;
-
-        PopupManager.EnableExplanationPopup(btnFinishTest);
+        var PopUpManager = FindObjectOfType<PopupManager>();
+        PopUpManager.SwitchPopup("PopUpExplanationContainer", false, 0.07f, true);
+        
         audioSource.Play();
-    }
-
-    private void EnableBtns()
-    {
-        //PopupManager.EnableButtons(btnFinishTest); 
-        suspiciousElementsCounter.style.opacity = 1f;
     }
 }

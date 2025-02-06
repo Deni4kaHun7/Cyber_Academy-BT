@@ -15,10 +15,12 @@ public class TimerManager : MonoBehaviour
     private float timeRemaining;
     public static bool isTimerRunning = false;
     private AudioSource audioSource;
+    private PopupManager PopupManager;
 
     private void Start() 
     {
         audioSource = gameObject.GetComponent<AudioSource>();
+        PopupManager = FindObjectOfType<PopupManager>();
 
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         var root = uiDocument.rootVisualElement;
@@ -47,7 +49,7 @@ public class TimerManager : MonoBehaviour
             timerLabel.text = "00:00";
             StopTimer();
             failTimerContainer.style.display = DisplayStyle.Flex;
-            PopupManager.SwitchPopup();
+            PopupManager.SwitchPopup("FailTimerContainer", false, 0.07f, true);
             audioSource.Play();
         }
         else if(isTimerRunning)
@@ -84,7 +86,7 @@ public class TimerManager : MonoBehaviour
         timeRemaining = timeLimit;
         isTimerRunning = true;
         failTimerContainer.style.display = DisplayStyle.None;
-        PopupManager.SwitchPopup();
+        PopupManager.SwitchPopup("FailTimerContainer", true, 1f, false);
         timerLabel.style.opacity = 1f;
     }
 }
