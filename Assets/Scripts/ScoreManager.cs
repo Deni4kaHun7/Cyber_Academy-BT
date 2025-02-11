@@ -10,7 +10,7 @@ public class ScoreManager : MonoBehaviour
     public int score = 0;
 
     // Static reference to the UI label used to display the score
-    private  Label scoreLabel;
+    private Label scoreLabel;
 
     private void Awake() {
         if(Instance != null && Instance != this) {
@@ -23,7 +23,7 @@ public class ScoreManager : MonoBehaviour
     }
 
     // Static method to add points to the player's score
-    public  void AddScore(int points)
+    public void AddScore(int points)
     {
         // Increase the score by the given points, ensuring it doesn't go below zero
         score = Mathf.Max(0, score + points);

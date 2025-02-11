@@ -6,15 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class SlideManager : MonoBehaviour
 {
-    public string slideContainerName;
-    public string btnsContainerName;
+    private string slideContainerName;
+    private string btnsContainerName;
     private int currentSlideIndex = 0;
     private Button btnNextSlide;
     private Button btnPrevSlide;
     private Button btnHideIntro;
     private Label[] slidesArray;
-    private VisualElement nextSlide;
-    private VisualElement prevSlide;
     private VisualElement btnsContainer;
     private VisualElement slideParentContainer;
     private bool isUpdateEnabled = true;
@@ -26,14 +24,11 @@ public class SlideManager : MonoBehaviour
 
         slideParentContainer = root.Q<VisualElement>(slideContainerName);
         slidesArray = slideParentContainer.Query<Label>().ToList().ToArray();
-        Debug.Log("length" + slidesArray.Length);
 
         if(slidesArray.Length < 2)
         {
             isUpdateEnabled = false;
         }
-
-        Debug.Log(isUpdateEnabled);
 
         btnsContainer = root.Q<VisualElement>(btnsContainerName);
         btnNextSlide = btnsContainer.Query<Button>("btnNextSlide");
@@ -83,19 +78,18 @@ public class SlideManager : MonoBehaviour
 
     private void ShowSlide(int index)
     {
+        slidesArray[currentSlideIndex].style.display = DisplayStyle.None;
         slidesArray[index].style.display = DisplayStyle.Flex;
     }
 
     private void OnClickNextSlide()
     {
-        slidesArray[currentSlideIndex].style.display = DisplayStyle.None;
         currentSlideIndex ++;
         ShowSlide(currentSlideIndex);
     }
 
     private void OnClickPrevSlide()
-    {
-        slidesArray[currentSlideIndex].style.display = DisplayStyle.None;
+    {   
         currentSlideIndex --;
         ShowSlide(currentSlideIndex);
     }
