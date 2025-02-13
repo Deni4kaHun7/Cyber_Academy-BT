@@ -76,22 +76,18 @@ public class SlideManager : MonoBehaviour
         }
     }
 
-    private void ShowSlide(int index)
-    {
-        slidesArray[currentSlideIndex].style.display = DisplayStyle.None;
-        slidesArray[index].style.display = DisplayStyle.Flex;
-    }
-
     private void OnClickNextSlide()
     {
+        slidesArray[currentSlideIndex].style.display = DisplayStyle.None;
         currentSlideIndex ++;
-        ShowSlide(currentSlideIndex);
+        slidesArray[currentSlideIndex].style.display = DisplayStyle.Flex;
     }
 
     private void OnClickPrevSlide()
     {   
+        slidesArray[currentSlideIndex].style.display = DisplayStyle.None;
         currentSlideIndex --;
-        ShowSlide(currentSlideIndex);
+        slidesArray[currentSlideIndex].style.display = DisplayStyle.Flex;
     }
 
     public static void CreateSlideManager(string slideName, string btnContainer)

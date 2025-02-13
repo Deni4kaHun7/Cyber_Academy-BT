@@ -7,13 +7,12 @@ public class TimerManager : MonoBehaviour
 {
     [SerializeField] private float timeLimit;
     private Label timerLabel;
-    private VisualElement failTimerContainer;
     private Button btnRestart;
     private Button btnStartTimer;
     private Button btnIsPhishing;
     private Button btnNotPhishing;
     private float timeRemaining;
-    public static bool isTimerRunning = false;
+    private bool isTimerRunning = false;
     private AudioSource audioSource;
     private PopupManager PopupManager;
 
@@ -29,13 +28,12 @@ public class TimerManager : MonoBehaviour
 
         btnRestart= root.Q<Button>("btnRestartTimer");
 
-        failTimerContainer = root.Q<VisualElement>("FailTimerContainer");
         btnStartTimer = root.Q<Button>("btnHideIntro");
         btnIsPhishing = root.Q<Button>("btnIsPhishing");
         btnNotPhishing = root.Q<Button>("btnNotPhishing");
 
         btnRestart.clicked += OnTryAgainBtnClicked;
-        btnStartTimer.clicked += AddTimer;
+        btnStartTimer.clicked += StartTimer;
 
         btnIsPhishing.clicked += StopTimer;
         btnNotPhishing.clicked += StopTimer;
@@ -48,7 +46,6 @@ public class TimerManager : MonoBehaviour
             timeRemaining = 0;
             timerLabel.text = "00:00";
             StopTimer();
-            failTimerContainer.style.display = DisplayStyle.Flex;
             PopupManager.SwitchPopup("FailTimerContainer", false, 0.07f, true);
             audioSource.Play();
         }
@@ -68,9 +65,8 @@ public class TimerManager : MonoBehaviour
         }
     }
 
-    private void AddTimer()
+    private void StartTimer()
     {
-        timerLabel.style.display = DisplayStyle.Flex;
         isTimerRunning = true;
         timeRemaining = timeLimit;
     }
@@ -78,15 +74,12 @@ public class TimerManager : MonoBehaviour
     private void StopTimer()
     {
         isTimerRunning = false;
-        timerLabel.style.opacity = .07f;
+        Debug.Log(isTimerRunning);
     }
 
     private void OnTryAgainBtnClicked()
     {
-        timeRemaining = timeLimit;
-        isTimerRunning = true;
-        failTimerContainer.style.display = DisplayStyle.None;
+        StartTimer();
         PopupManager.SwitchPopup("FailTimerContainer", true, 1f, false);
-        timerLabel.style.opacity = 1f;
     }
 }
