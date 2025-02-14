@@ -57,7 +57,7 @@ public class HintObjectManager : MonoBehaviour
         label.RemoveFromHierarchy();
         dictionary.Remove(currentHintObject);
 
-        ScoreManager.Instance.AddScore(5);
+        ScoreManager.Instance.AddScore();
 
         BoxCollider2D currentHOboxCollider = currentHintObject.GetComponent<BoxCollider2D>();
         currentHOboxCollider.enabled = false;

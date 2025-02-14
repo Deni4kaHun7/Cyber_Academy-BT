@@ -42,11 +42,11 @@ public class GuessTestManager : MonoBehaviour
     {  
         if(isPhishing)
         {
-           ShowMessage(10, successMsg, audioClipWin);
+           ShowMessage(successMsg, audioClipWin);
         }
         else
         {
-            ShowMessage(-10, failMsg, audioClipFail);
+            ShowMessage(failMsg, audioClipFail);
         }
     }
 
@@ -56,17 +56,17 @@ public class GuessTestManager : MonoBehaviour
 
         if(isPhishing)
         {
-            ShowMessage(-10, successMsg, audioClipFail);
+            ShowMessage(successMsg, audioClipFail);
         }
         else
         {
-            ShowMessage(10, failMsg, audioClipWin);
+            ShowMessage(failMsg, audioClipWin);
         }
     }
 
-    private void ShowMessage(int points, string msg, AudioClip audioClip)
+    private void ShowMessage(string msg, AudioClip audioClip)
     {
-        ScoreManager.Instance.AddScore(points);
+        ScoreManager.Instance.AddScore();
 
         Label firstSlide = slidesExplanation[0];
         firstSlide.text = msg + firstSlide.text;

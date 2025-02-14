@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class ScoreManager : MonoBehaviour
 {
-    public static ScoreManager Instance { get; set; } 
+    public static ScoreManager Instance { get; private set; } 
     // Static variable to store the player's score, shared across all instances
     public int score = 0;
 
@@ -23,10 +23,10 @@ public class ScoreManager : MonoBehaviour
     }
 
     // Static method to add points to the player's score
-    public void AddScore(int points)
+    public void AddScore()
     {
         // Increase the score by the given points, ensuring it doesn't go below zero
-        score = Mathf.Max(0, score + points);
+        score = Mathf.Max(0, score + 10);
 
         // Update the score label with the new score
         scoreLabel.text = $"Score:{score}";
