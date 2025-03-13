@@ -9,10 +9,9 @@ public class GameSceneManager : MonoBehaviour
     // Array to hold references to buttons named "btnNextScene"
     private Button[] btnNextSceneArray;
 
-    // Unity's Start method, called when the script is initialized
     private void Start()
     {
-        // Find the first UIDocument in the scene
+        // Find the UIDocument in the scene
         var uiDocument = GameObject.FindObjectOfType<UIDocument>();
         
         // Get the root element of the UI hierarchy
@@ -27,9 +26,9 @@ public class GameSceneManager : MonoBehaviour
             btn.clicked += OnClickNextScene;
         }
 
-        ScoreManager.Instance.RegisterLabel(uiDocument);
-        
         ButtonSoundManager.Instance.RegisterButtons(uiDocument);
+
+        ScoreManager.Instance.RegisterLabel(uiDocument);
     }
 
     // Function to load the next scene in the build settings

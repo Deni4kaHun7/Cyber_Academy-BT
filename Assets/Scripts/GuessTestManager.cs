@@ -9,14 +9,14 @@ public class GuessTestManager : MonoBehaviour
     [SerializeField] private bool isPhishing;
     [SerializeField] private AudioClip audioClipFail;
     [SerializeField] private AudioClip audioClipWin;
+    private string successMsg;
+    private string failMsg;
     private VisualElement slidesExplanationContainer;
     private Label[] slidesExplanation;
     private Button btnIsPhishing;
     private Button btnNotPhishing;
     private AudioSource audioSource;
-    private string successMsg;
-    private string failMsg;
-
+    
     private void Start() 
     {
         audioSource = gameObject.GetComponent<AudioSource>();
@@ -42,31 +42,29 @@ public class GuessTestManager : MonoBehaviour
     {  
         if(isPhishing)
         {
-           ShowMessage(successMsg, audioClipWin);
+           ShowMessage(successMsg, audioClipWin, 10);
         }
         else
         {
-            ShowMessage(failMsg, audioClipFail);
+            ShowMessage(failMsg, audioClipFail, -10);
         }
     }
 
     private void OnClickIsNotPhishing()
     {   
-        //PopupManager.EnableExplanationPopup(btnIsPhishing, btnNotPhishing);
-
         if(isPhishing)
         {
-            ShowMessage(successMsg, audioClipFail);
+            ShowMessage(successMsg, audioClipFail, -10);
         }
         else
         {
-            ShowMessage(failMsg, audioClipWin);
+            ShowMessage(failMsg, audioClipWin, 10);
         }
     }
 
-    private void ShowMessage(string msg, AudioClip audioClip)
+    private void ShowMessage(string msg, AudioClip audioClip, int points)
     {
-        ScoreManager.Instance.AddScore();
+        ScoreManager.Instance.AddScore(points);
 
         Label firstSlide = slidesExplanation[0];
         firstSlide.text = msg + firstSlide.text;

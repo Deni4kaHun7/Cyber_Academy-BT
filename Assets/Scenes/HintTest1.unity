@@ -2381,7 +2381,7 @@ GameObject:
   - component: {fileID: 1338880467}
   - component: {fileID: 1338880469}
   m_Layer: 0
-  m_Name: HintManager
+  m_Name: HintObjectManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

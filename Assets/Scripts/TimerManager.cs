@@ -46,8 +46,11 @@ public class TimerManager : MonoBehaviour
             timeRemaining = 0;
             timerLabel.text = "00:00";
             StopTimer();
-            PopupManager.SwitchPopup("FailTimerContainer", false, 0.07f, true);
             audioSource.Play();
+            
+            PopupManager.SwitchPopup("FailTimerContainer", false, 0.07f, true);
+            
+            ScoreManager.Instance.AddScore(-5);
         }
         else if(isTimerRunning)
         {
@@ -74,7 +77,6 @@ public class TimerManager : MonoBehaviour
     private void StopTimer()
     {
         isTimerRunning = false;
-        Debug.Log(isTimerRunning);
     }
 
     private void OnTryAgainBtnClicked()

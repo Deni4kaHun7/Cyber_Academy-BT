@@ -22,17 +22,13 @@ public class ButtonSoundManager : MonoBehaviour
         audioSource = gameObject.GetComponent<AudioSource>();
     }
 
-    private void PlayButtonSound() {
-        audioSource.Play();
-    }
-
     public void RegisterButtons(UIDocument uiDocument) {
         var root = uiDocument.rootVisualElement;
         var buttons = root.Query<Button>().ToList();
 
         foreach (var btn in buttons)
         {
-            btn.clicked += PlayButtonSound;
+            btn.clicked += () => audioSource.Play();
         }
     }
 }

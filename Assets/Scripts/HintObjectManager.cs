@@ -8,9 +8,8 @@ using System.Linq;
 
 public class HintObjectManager : MonoBehaviour
 {
-    private Dictionary<GameObject, Label> dictionary;
+    private Dictionary<GameObject, Label> hintObjectDictionary;
     private List<GameObject> hintObjects;
-    private VisualElement suspiciousElementsCounter;
     private Label suspiciousElementClicked;
     private Label suspiciousElementsTotal;
     private Button btnFinishTest;
@@ -31,7 +30,6 @@ public class HintObjectManager : MonoBehaviour
 
         successMsg = root.Q<Label>("successMsg");
 
-        suspiciousElementsCounter = root.Q<VisualElement>("SuspiciousElementsCounter");
         suspiciousElementClicked = root.Q<Label>("elementsClicked");
         suspiciousElementsTotal = root.Q<Label>("elementsTotal");
 
@@ -42,22 +40,22 @@ public class HintObjectManager : MonoBehaviour
 
         SlideManager.CreateSlideManager("SlidesIntro", "IntroBtnsContainer");
 
-        dictionary = new Dictionary<GameObject, Label>();
+        hintObjectDictionary = new Dictionary<GameObject, Label>();
 
         foreach(var hintObject in hintObjects)
         {
             var slide = root.Q<Label>(hintObject.name);
-            dictionary.Add(hintObject, slide);
+            hintObjectDictionary.Add(hintObject, slide);
         }
     }
 
     public void OnClickHintObject(GameObject currentHintObject)
     {
-        var label = dictionary[currentHintObject];
+        var label = hintObjectDictionary[currentHintObject];
         label.RemoveFromHierarchy();
-        dictionary.Remove(currentHintObject);
+        hintObjectDictionary.Remove(currentHintObject);
 
-        ScoreManager.Instance.AddScore();
+        ScoreManager.Instance.AddScore(5);
 
         BoxCollider2D currentHOboxCollider = currentHintObject.GetComponent<BoxCollider2D>();
         currentHOboxCollider.enabled = false;
@@ -70,22 +68,17 @@ public class HintObjectManager : MonoBehaviour
 
     private void OnClickFinishTest()
     {   
-        // Check if there are any remaining explanation slides (missed suspicious elements).
-        if (dictionary.Count == 0) 
+        if (hintObjectDictionary.Count == 0) 
         {
-            // If no missed elements, display the success message.
             successMsg.style.display = DisplayStyle.Flex;
         }
         else 
         {
-            // If there are missed elements, get the first slide from the list.
-            Label firstSlide = dictionary.First().Value;
-            
-            // Update the first slide's text to include a message indicating what was missed.
+            Label firstSlide = hintObjectDictionary.First().Value;
             firstSlide.text = "Good Try! Now let's see what you missed.\n" + firstSlide.text;
-
-            // Display the updated slide.
             firstSlide.style.display = DisplayStyle.Flex;
+
+            SlideManager.CreateSlideManager("SlidesExplanation", "ExplanationBtnsContainer");
         }
 
         var PopUpManager = FindObjectOfType<PopupManager>();
