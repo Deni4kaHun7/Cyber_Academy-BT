@@ -1,0 +1,23 @@
+# Cyber Academy – Bachelor thesis project
+
+This is the source code for an serious game developed as part of my academic thesis. The project is designed to be open, reusable, and easy to build upon for educational or research purposes.
+
+## License
+
+The source code is released under the [MIT License](./LICENSE), which allows free use, modification, and redistribution, even in commercial projects.
+
+## Assets Notice
+
+**Note:** The game assets (such as images, audio, and fonts) are **not included** in this repository due to license incompatibilities. These assets are subject to different licenses that do not allow redistribution under the MIT License.
+
+However, if you wish to continue developing the game using the same visuals, you can obtain the original assets from the following sources:
+
+- Background sprites: [https://nyknck.itch.io/futuristicui]
+- Teahcer sprite: [https://the-outlander.itch.io/free-pixel-art-cyberpunk-character-portraits-pack]
+- Sound effects: [https://assetstore.unity.com/packages/audio/sound-fx/free-casual-game-sfx-pack-54116?srsltid=AfmBOoqT7Ljc7crpNmz7Ecuo7KnsRmEYJfmahUjEoehcPdz5az1RKCR2]
+- Background music: [https://assetstore.unity.com/packages/audio/ambient/sci-fi/free-sci-fi-and-cyberpunk-music-pack-264590]
+- Fonts used for emails: [https://fonts.google.com/specimen/Roboto]
+- Primary font: [https://www.dafont.com/venite-adoremus.font]
+- Image used for user in email: [https://depositphotos.com/vector/unknown-person-silhouette-glasses-profile-picture-silhouette-profile-man-avatar-179308454.html]
+
+Please ensure you **review and comply with the licenses** provided by each source if you intend to use these assets in your version of the game.
