@@ -41,6 +41,7 @@ public class TimerManager : MonoBehaviour
 
     private void Update()
     {
+        // Disable timer and toggle the popup, if timer finished
         if(timeRemaining <= 0 && isTimerRunning)
         {
             timeRemaining = 0;
@@ -52,6 +53,7 @@ public class TimerManager : MonoBehaviour
             
             ScoreManager.Instance.AddScore(-5);
         }
+        // Update the timer value 
         else if(isTimerRunning)
         {
             timeRemaining -= Time.deltaTime;

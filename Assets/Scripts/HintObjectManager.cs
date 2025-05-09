@@ -45,18 +45,23 @@ public class HintObjectManager : MonoBehaviour
         foreach(var hintObject in hintObjects)
         {
             var slide = root.Q<Label>(hintObject.name);
+            Debug.Log(slide.text, hintObject);
             hintObjectDictionary.Add(hintObject, slide);
         }
     }
 
     public void OnClickHintObject(GameObject currentHintObject)
     {
-        var label = hintObjectDictionary[currentHintObject];
-        label.RemoveFromHierarchy();
+        // Retrieve the associated slide from the dictionary using the clicked hint object reference
+        var explanationSlide = hintObjectDictionary[currentHintObject];
+        // Remove the respective slide element from the UI 
+        explanationSlide.RemoveFromHierarchy();
+        // Remove the clicked hint object from the dictionary
         hintObjectDictionary.Remove(currentHintObject);
-
+        // Update the score
         ScoreManager.Instance.AddScore(5);
 
+        // Disable the box collider and enable the sprite renderer
         BoxCollider2D currentHOboxCollider = currentHintObject.GetComponent<BoxCollider2D>();
         currentHOboxCollider.enabled = false;
         SpriteRenderer currentHOspriteRenderer = currentHintObject.GetComponent<SpriteRenderer>();
@@ -68,19 +73,23 @@ public class HintObjectManager : MonoBehaviour
 
     private void OnClickFinishTest()
     {   
+        // Display the success message if no hint objects are left.
         if (hintObjectDictionary.Count == 0) 
         {
             successMsg.style.display = DisplayStyle.Flex;
         }
         else 
         {
+            // Retrieve the first slide, update the text value and reveal it
             Label firstSlide = hintObjectDictionary.First().Value;
             firstSlide.text = "Good Try! Now let's see what you missed.\n" + firstSlide.text;
             firstSlide.style.display = DisplayStyle.Flex;
 
+            // Create new SlideManager for the explanation slides
             SlideManager.CreateSlideManager("SlidesExplanation", "ExplanationBtnsContainer");
         }
 
+        // Toggle the popup
         var PopUpManager = FindObjectOfType<PopupManager>();
         PopUpManager.SwitchPopup("PopUpExplanationContainer", false, 0.07f, true);
         

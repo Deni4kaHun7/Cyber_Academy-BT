@@ -33,12 +33,13 @@ public class PopupManager : MonoBehaviour
 
     public void SwitchPopup(string elementName, bool btnStatus, float opacityElement, bool visualElementStatus)
     {
+        // Switch the popup background status
         popupBG.SetActive(!popupBG.activeSelf);
-
+        // Switch the popup UI status
         canvas.enabled = !canvas.enabled;
-
+        // Update the scene info opacity(score, timer etc.)
         sceneInfo.style.opacity = opacityElement;
-
+        // Visual element to be hidden or revealed
         var elementSwitch = root.Q<VisualElement>(elementName);
         
         if (visualElementStatus) {
@@ -48,7 +49,7 @@ public class PopupManager : MonoBehaviour
         {
             elementSwitch.style.display = DisplayStyle.None;
         }
-
+        // Toggle the opacity and active status of interactive buttons in the scene
         foreach (var btnName in btnsToEnable)
         {
             var button = root.Q<Button>(btnName);

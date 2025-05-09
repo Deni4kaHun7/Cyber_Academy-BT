@@ -9,15 +9,18 @@ public class HintObject : MonoBehaviour
 
     void Start()
     {
-        // Add an AudioSource component if not already attached
+        // Initalize audio source variable
         audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     // This method is called when the user clicks on the GameObject this script is attached to.
     private void OnMouseDown()
     {
-       HintObjectManager hintManager = FindObjectOfType<HintObjectManager>();
-       hintManager.OnClickHintObject(gameObject);
-       audioSource.Play();
+        // Find the HintObjectManager in the scene.
+        HintObjectManager hintManager = FindObjectOfType<HintObjectManager>();
+        // Call the OnClickHintObject method and pass the reference to clicked object
+        hintManager.OnClickHintObject(gameObject);
+        // Play the associated audio clip.
+        audioSource.Play();
     }
 }

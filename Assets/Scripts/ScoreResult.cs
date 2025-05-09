@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ScoreResult : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private Label scoreResult;
+    private void Start()
     {
-        
-    }
+        var uiDocument = GameObject.FindObjectOfType<UIDocument>();
+        var root = uiDocument.rootVisualElement; 
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Update the scoreResult Label element with the score value
+        scoreResult = root.Q<Label>("scoreLabel");
+        scoreResult.text = "Final score: " + ScoreManager.Instance.score;
     }
 }

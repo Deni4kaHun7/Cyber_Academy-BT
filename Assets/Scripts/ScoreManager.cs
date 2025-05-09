@@ -5,20 +5,26 @@ using UnityEngine.UIElements;
 
 public class ScoreManager : MonoBehaviour
 {
+    // Singleton instance of ScoreManager, allowing global access to its methods and properties
     public static ScoreManager Instance { get; private set; } 
+
     // Static variable to store the player's score, shared across all instances
     public int score = 0;
 
-    // Static reference to the UI label used to display the score
+    // Static reference to the Label element used to display the score
     private Label scoreLabel;
 
     private void Awake() {
+        // Check if other instance exists
         if(Instance != null && Instance != this) {
             Destroy(gameObject);
             return;
         }
 
+        // Set this as the Singleton instance
         Instance = this;
+
+        // Prevent this object from being destroyed when loading a new scene
         DontDestroyOnLoad(gameObject);
     }
 
@@ -28,10 +34,11 @@ public class ScoreManager : MonoBehaviour
         // Increase the score by the given points, ensuring it doesn't go below zero
         score = Mathf.Max(0, score + points);
 
-        // Update the score label with the new score
+        // Update the score Label element with the new score
         scoreLabel.text = $"Score:{score}";
     }
 
+    // Method to initialize the Label element and update its value
     public void RegisterLabel(UIDocument uiDocument) {
         // Find the UIDocument in the scene and access the root UI element
         var root = uiDocument.rootVisualElement;

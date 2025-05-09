@@ -28,7 +28,7 @@ public class GuessTestManager : MonoBehaviour
 
         btnIsPhishing = root.Q<Button>("btnIsPhishing");
         btnNotPhishing = root.Q<Button>("btnNotPhishing");
-        
+
         slidesExplanationContainer = root.Q<VisualElement>("SlidesExplanation");
         slidesExplanation = slidesExplanationContainer.Query<Label>().ToList().ToArray();
 
@@ -64,14 +64,20 @@ public class GuessTestManager : MonoBehaviour
 
     private void ShowMessage(string msg, AudioClip audioClip, int points)
     {
+        // Update the score value
         ScoreManager.Instance.AddScore(points);
-
+        // Update the text value of the first slide
         Label firstSlide = slidesExplanation[0];
         firstSlide.text = msg + firstSlide.text;
 
+        // Create SlideManager for explanataion popup
+        SlideManager.CreateSlideManager("SlidesExplanation", "ExplanationBtnsContainer");
+        
+        // Toggle the popup status
         var PopUpManager = FindObjectOfType<PopupManager>();
         PopUpManager.SwitchPopup("PopUpExplanationContainer", false, 0.07f, true);
 
+        // Play the sound
         audioSource.clip = audioClip;
         audioSource.Play();
     }
